@@ -5,7 +5,7 @@ import com.mars.laserbridges.blocks.FenceSourceBlock;
 import com.mars.laserbridges.blocks.LaserBridgeBlock;
 import com.mars.laserbridges.blocks.LaserFenceBlock;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -17,11 +17,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -61,32 +59,32 @@ public class Laserbridges {
     public Laserbridges() {
         CommonClass.init();
 
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        var modEventBus = FMLJavaModLoadingContext.get().getModBusGroup();
         
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         SOUND_EVENTS.register(modEventBus);
 
-        modEventBus.addListener(this::addCreative);
-        modEventBus.addListener(this::clientSetup);
+        RegisterColorHandlersEvent.Block.getBus(modEventBus).addListener(Laserbridges::registerBlockColorHandlers);
+        FMLClientSetupEvent.getBus(modEventBus).addListener(Laserbridges::clientSetup);
+        BuildCreativeModeTabContentsEvent.getBus(modEventBus).addListener(Laserbridges::addCreative);
     }
 
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
-            event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(COLOR))).getTextureDiffuseColor(), BRIDGE_SOURCE_BLOCK.get(), LASER_FENCE_SOURCE_BLOCK.get(), LASER_BLOCK.get(), LASER_FENCE_BLOCK.get());
-        }
+    @SubscribeEvent
+    public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
+        event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(COLOR))).getTextureDiffuseColor(), BRIDGE_SOURCE_BLOCK.get(), LASER_FENCE_SOURCE_BLOCK.get(), LASER_BLOCK.get(), LASER_FENCE_BLOCK.get());
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) {
-        ItemBlockRenderTypes.setRenderLayer(LASER_BLOCK.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(BRIDGE_SOURCE_BLOCK.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(LASER_FENCE_SOURCE_BLOCK.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(LASER_FENCE_BLOCK.get(), RenderType.translucent());
+    @SubscribeEvent
+    private static void clientSetup(FMLClientSetupEvent event) {
+        ItemBlockRenderTypes.setRenderLayer(LASER_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
+        ItemBlockRenderTypes.setRenderLayer(BRIDGE_SOURCE_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
+        ItemBlockRenderTypes.setRenderLayer(LASER_FENCE_SOURCE_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
+        ItemBlockRenderTypes.setRenderLayer(LASER_FENCE_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
     }
 
-    private void addCreative(BuildCreativeModeTabContentsEvent event)
+    @SubscribeEvent
+    private static void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS){
             event.accept(BRIDGE_SOURCE_BLOCK_ITEM);

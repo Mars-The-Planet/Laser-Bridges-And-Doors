@@ -6,10 +6,10 @@ import com.mars.laserbridges.blocks.LaserBridgeBlock;
 import com.mars.laserbridges.blocks.LaserFenceBlock;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -21,7 +21,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -63,10 +63,10 @@ public class Laserbridges implements ModInitializer, ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(Laserbridges.LASER_BLOCK, RenderType.translucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(Laserbridges.BRIDGE_SOURCE_BLOCK, RenderType.translucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(Laserbridges.LASER_FENCE_SOURCE_BLOCK, RenderType.translucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(Laserbridges.LASER_FENCE_BLOCK, RenderType.translucent());
+        BlockRenderLayerMap.putBlock(Laserbridges.LASER_BLOCK, ChunkSectionLayer.TRANSLUCENT);
+        BlockRenderLayerMap.putBlock(Laserbridges.BRIDGE_SOURCE_BLOCK, ChunkSectionLayer.TRANSLUCENT);
+        BlockRenderLayerMap.putBlock(Laserbridges.LASER_FENCE_SOURCE_BLOCK, ChunkSectionLayer.TRANSLUCENT);
+        BlockRenderLayerMap.putBlock(Laserbridges.LASER_FENCE_BLOCK, ChunkSectionLayer.TRANSLUCENT);
 
         ColorProviderRegistry.BLOCK.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(COLOR))).getTextureDiffuseColor(), BRIDGE_SOURCE_BLOCK, LASER_FENCE_SOURCE_BLOCK, LASER_BLOCK, LASER_FENCE_BLOCK);
     }

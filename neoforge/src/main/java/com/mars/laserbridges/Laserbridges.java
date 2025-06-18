@@ -6,7 +6,7 @@ import com.mars.laserbridges.blocks.FenceSourceBlock;
 import com.mars.laserbridges.blocks.LaserBridgeBlock;
 import com.mars.laserbridges.blocks.LaserFenceBlock;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -74,10 +74,10 @@ public class Laserbridges {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        ItemBlockRenderTypes.setRenderLayer(LASER_BLOCK.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(BRIDGE_SOURCE_BLOCK.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(LASER_FENCE_SOURCE_BLOCK.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(LASER_FENCE_BLOCK.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(LASER_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
+        ItemBlockRenderTypes.setRenderLayer(BRIDGE_SOURCE_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
+        ItemBlockRenderTypes.setRenderLayer(LASER_FENCE_SOURCE_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
+        ItemBlockRenderTypes.setRenderLayer(LASER_FENCE_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)
