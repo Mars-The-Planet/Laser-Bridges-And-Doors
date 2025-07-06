@@ -65,7 +65,7 @@ public class Laserbridges {
         modEventBus.addListener(this::clientSetup);
     }
 
-    @EventBusSubscriber(modid = MOD_ID)
+    @EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
