@@ -125,7 +125,7 @@ public class BridgeSourceBlock extends FaceAttachedHorizontalDirectionalBlock {
 
     @Override
     protected void neighborChanged(BlockState state, Level lvl, BlockPos pos, Block p_60512_, @Nullable Orientation p_365159_, boolean p_60514_) {
-        if (lvl.isClientSide) {
+        if (lvl.isClientSide()) {
             return;
         }
 
@@ -147,7 +147,7 @@ public class BridgeSourceBlock extends FaceAttachedHorizontalDirectionalBlock {
     }
 
     public void tick(BlockState state, ServerLevel lvl, BlockPos pos, RandomSource p_221940_) {
-        if (lvl.isClientSide) {
+        if (lvl.isClientSide()) {
             return;
         }
 
@@ -164,7 +164,7 @@ public class BridgeSourceBlock extends FaceAttachedHorizontalDirectionalBlock {
     }
 
     public void onPlace(BlockState state, Level lvl, BlockPos pos, BlockState p_60569_, boolean p_60570_) {
-        if (lvl.isClientSide) {
+        if (lvl.isClientSide()) {
             return;
         }
 
@@ -185,7 +185,7 @@ public class BridgeSourceBlock extends FaceAttachedHorizontalDirectionalBlock {
 
     @Override
     protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel lvl, BlockPos pos, boolean p_394545_) {
-        if (!lvl.isClientSide) {
+        if (!lvl.isClientSide()) {
             lvl.playSound((Player)null, pos, SoundEvents.METAL_BREAK, SoundSource.BLOCKS, 0.3F, 0.5F);
             generateBridge(lvl, 0, pos, state);
         }
