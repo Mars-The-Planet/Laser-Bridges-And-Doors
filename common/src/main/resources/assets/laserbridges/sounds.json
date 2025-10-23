@@ -1,0 +1,13 @@
+{
+  "on": {
+    "sounds": [
+      "laserbridges:on"
+    ]
+  },
+  "off": {
+    "sounds": [
+      "laserbridges:off"
+    ]
+  }
+}
+
