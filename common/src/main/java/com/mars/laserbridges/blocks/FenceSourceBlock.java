@@ -97,7 +97,7 @@ public class FenceSourceBlock extends FaceAttachedHorizontalDirectionalBlock {
             String nextBlockName = (BuiltInRegistries.BLOCK.getKey(nextState.getBlock())).toString();
             boolean isDestroyable = LasersConfig.blocks_cut_through_by_lasers.contains(nextBlockName);
 
-            if(!(nextState.equals(bs) || isDestroyable))
+            if(!(nextState.equals(bs) || isDestroyable || isSameExceptCol(bs, nextState)))
                 return;
             if(isDestroyable)
                 world.destroyBlock(nextPos, true);
@@ -110,6 +110,13 @@ public class FenceSourceBlock extends FaceAttachedHorizontalDirectionalBlock {
         }
     }
 
+    public boolean isSameExceptCol(BlockState oldBs, BlockState newBs) {
+        if (!oldBs.getBlock().equals(newBs.getBlock()))             return false;
+        if (!oldBs.getValue(FACING).equals(newBs.getValue(FACING))) return false;
+        if (!oldBs.getValue(FACE).equals(newBs.getValue(FACE)))     return false;
+        return true;
+    }
+
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level lvl,
                                           BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
@@ -118,7 +125,12 @@ public class FenceSourceBlock extends FaceAttachedHorizontalDirectionalBlock {
             int col = ((DyeItem) item).getDyeColor().getId();
             stack.consume(1, player);
             player.awardStat(Stats.ITEM_USED.get(item));
-            lvl.setBlock(pos, state.setValue(COLOR, col), 2);
+
+            BlockState newBS = state.setValue(COLOR, col);
+            lvl.setBlock(pos, newBS, 3);
+            int redstonePower = lvl.getBestNeighborSignal(pos);
+            generateBridge(lvl, redstonePower, pos, newBS);
+
             return InteractionResult.SUCCESS;
         }
         return super.useItemOn(stack, state, lvl, pos, player, hand, hit);
