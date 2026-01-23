@@ -7,7 +7,7 @@ import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeItem;
@@ -32,8 +32,8 @@ public class CommonClass {
                 BlockPos blockPos = blockSource.pos().relative(direction);
                 BlockState blockState = serverLevel.getBlockState(blockPos);
                 Block block = blockState.getBlock();
-                if(block.equals(BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME))) ||
-                        block.equals(BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(MOD_ID, FENCE_SOURCE_BLOCK_NAME)))){
+                if(block.equals(BuiltInRegistries.BLOCK.get(Identifier.fromNamespaceAndPath(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME))) ||
+                        block.equals(BuiltInRegistries.BLOCK.get(Identifier.fromNamespaceAndPath(MOD_ID, FENCE_SOURCE_BLOCK_NAME)))){
                     Item item = stack.getItem();
                     int col = ((DyeItem) item).getDyeColor().getId();
                     serverLevel.setBlock(blockPos, blockState.setValue(COLOR, col), 2);

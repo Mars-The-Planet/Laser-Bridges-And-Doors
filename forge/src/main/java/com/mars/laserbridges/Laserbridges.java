@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -35,10 +35,10 @@ public class Laserbridges {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MOD_ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Registries.SOUND_EVENT, MOD_ID);
-    static ResourceLocation laser_source_block_id = ResourceLocation.fromNamespaceAndPath(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME);
-    static ResourceLocation laser_block_id = ResourceLocation.fromNamespaceAndPath(MOD_ID, LASER_BLOCK_NAME);
-    static ResourceLocation laser_fence_source_block_id = ResourceLocation.fromNamespaceAndPath(MOD_ID, FENCE_SOURCE_BLOCK_NAME);
-    static ResourceLocation laser_fence_block_id = ResourceLocation.fromNamespaceAndPath(MOD_ID, LASER_FENCE_BLOCK_NAME);
+    static Identifier laser_source_block_id = Identifier.fromNamespaceAndPath(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME);
+    static Identifier laser_block_id = Identifier.fromNamespaceAndPath(MOD_ID, LASER_BLOCK_NAME);
+    static Identifier laser_fence_source_block_id = Identifier.fromNamespaceAndPath(MOD_ID, FENCE_SOURCE_BLOCK_NAME);
+    static Identifier laser_fence_block_id = Identifier.fromNamespaceAndPath(MOD_ID, LASER_FENCE_BLOCK_NAME);
 
     public static final RegistryObject<Block> BRIDGE_SOURCE_BLOCK = BLOCKS.register(BRIDGE_SOURCE_BLOCK_NAME, () ->
             new BridgeSourceBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, laser_source_block_id)).strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
@@ -93,6 +93,6 @@ public class Laserbridges {
     }
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
-        return SOUND_EVENTS.register(name, () -> SoundEvent.createFixedRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, name), 75f));
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createFixedRangeEvent(Identifier.fromNamespaceAndPath(MOD_ID, name), 75f));
     }
 }

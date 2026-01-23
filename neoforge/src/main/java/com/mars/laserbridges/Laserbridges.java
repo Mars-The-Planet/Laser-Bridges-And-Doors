@@ -8,7 +8,7 @@ import com.mars.laserbridges.blocks.LaserFenceBlock;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -89,6 +89,6 @@ public class Laserbridges {
     }
 
     public static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(String name){
-        return SOUND_EVENTS.register(name, () -> SoundEvent.createFixedRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, name), 75f));
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createFixedRangeEvent(Identifier.fromNamespaceAndPath(MOD_ID, name), 75f));
     }
 }

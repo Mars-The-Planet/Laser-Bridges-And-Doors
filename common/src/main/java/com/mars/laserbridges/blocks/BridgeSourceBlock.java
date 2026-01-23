@@ -5,7 +5,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -74,11 +74,11 @@ public class BridgeSourceBlock extends FaceAttachedHorizontalDirectionalBlock {
         float min_length = (float) LasersConfig.max_length / 15;
         int length = (int) (min_length * power);
 
-        world.playSound((Player)null, pos, BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(MOD_ID, length == 0 ? OFF_NAME : ON_NAME)).get().value(), SoundSource.BLOCKS, 0.3F, 0.5F);
+        world.playSound((Player)null, pos, BuiltInRegistries.SOUND_EVENT.get(Identifier.fromNamespaceAndPath(MOD_ID, length == 0 ? OFF_NAME : ON_NAME)).get().value(), SoundSource.BLOCKS, 0.3F, 0.5F);
 
         for (int i = 1; i < LasersConfig.max_length; i++) {
             BlockPos addPos = new BlockPos(0, 0, 0);
-            BlockState bs = (BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(MOD_ID, LASER_BLOCK_NAME))).get().value().defaultBlockState().setValue(COLOR, col).setValue(FACING, dir).setValue(FACE, face);
+            BlockState bs = (BuiltInRegistries.BLOCK.get(Identifier.fromNamespaceAndPath(MOD_ID, LASER_BLOCK_NAME))).get().value().defaultBlockState().setValue(COLOR, col).setValue(FACING, dir).setValue(FACE, face);
             switch (face) {
                 case FLOOR -> addPos = new BlockPos(0, i, 0);
                 case WALL -> {
