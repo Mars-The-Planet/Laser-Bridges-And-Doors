@@ -5,8 +5,9 @@ import com.mars.laserbridges.blocks.BridgeSourceBlock;
 import com.mars.laserbridges.blocks.FenceSourceBlock;
 import com.mars.laserbridges.blocks.LaserBridgeBlock;
 import com.mars.laserbridges.blocks.LaserFenceBlock;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.color.block.BlockTintSource;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -28,6 +30,8 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.List;
 
 import static com.mars.laserbridges.Constants.*;
 import static com.mars.laserbridges.blocks.BridgeSourceBlock.COLOR;
@@ -68,16 +72,29 @@ public class Laserbridges {
     @EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
-        public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
-            event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(COLOR))).getTextureDiffuseColor(), BRIDGE_SOURCE_BLOCK.value(), LASER_FENCE_SOURCE_BLOCK.value(), LASER_BLOCK.value(), LASER_FENCE_BLOCK.value());
+        public static void registerBlockColours(RegisterColorHandlersEvent.BlockTintSources event) {
+            event.register(List.of(new BlockTintSource() {
+                @Override
+                public int color(BlockState state) {
+                    return DyeColor.byId(state.getValue(COLOR)).getTextureDiffuseColor();
+                }
+
+                @Override
+                public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                    return DyeColor.byId(state.getValue(COLOR)).getTextureDiffuseColor();
+                }
+            }), BRIDGE_SOURCE_BLOCK.value(), LASER_FENCE_SOURCE_BLOCK.value(), LASER_BLOCK.value(), LASER_FENCE_BLOCK.value());
+
+
+            //event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(COLOR))).getTextureDiffuseColor(), BRIDGE_SOURCE_BLOCK.value(), LASER_FENCE_SOURCE_BLOCK.value(), LASER_BLOCK.value(), LASER_FENCE_BLOCK.value());
         }
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        ItemBlockRenderTypes.setRenderLayer(LASER_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
-        ItemBlockRenderTypes.setRenderLayer(BRIDGE_SOURCE_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
-        ItemBlockRenderTypes.setRenderLayer(LASER_FENCE_SOURCE_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
-        ItemBlockRenderTypes.setRenderLayer(LASER_FENCE_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
+//        ItemBlockRenderTypes.setRenderLayer(LASER_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
+//        ItemBlockRenderTypes.setRenderLayer(BRIDGE_SOURCE_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
+//        ItemBlockRenderTypes.setRenderLayer(LASER_FENCE_SOURCE_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
+//        ItemBlockRenderTypes.setRenderLayer(LASER_FENCE_BLOCK.get(), ChunkSectionLayer.TRANSLUCENT);
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)

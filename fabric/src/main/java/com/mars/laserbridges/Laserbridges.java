@@ -6,9 +6,11 @@ import com.mars.laserbridges.blocks.LaserBridgeBlock;
 import com.mars.laserbridges.blocks.LaserFenceBlock;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.minecraft.client.color.block.BlockTintSource;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -20,9 +22,11 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+
+import java.util.List;
 
 import static com.mars.laserbridges.Constants.*;
 import static com.mars.laserbridges.blocks.BridgeSourceBlock.COLOR;
@@ -56,18 +60,30 @@ public class Laserbridges implements ModInitializer, ClientModInitializer {
         Registry.register(BuiltInRegistries.BLOCK, Identifier.fromNamespaceAndPath(MOD_ID, LASER_FENCE_BLOCK_NAME), LASER_FENCE_BLOCK);
         Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(MOD_ID, LASER_FENCE_BLOCK_NAME), new BlockItem(LASER_FENCE_BLOCK, new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, laser_fence_block_id))));
 
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(BRIDGE_SOURCE_BLOCK));
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(LASER_FENCE_SOURCE_BLOCK));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(BRIDGE_SOURCE_BLOCK));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(LASER_FENCE_SOURCE_BLOCK));
     }
 
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.putBlock(Laserbridges.LASER_BLOCK, ChunkSectionLayer.TRANSLUCENT);
-        BlockRenderLayerMap.putBlock(Laserbridges.BRIDGE_SOURCE_BLOCK, ChunkSectionLayer.TRANSLUCENT);
-        BlockRenderLayerMap.putBlock(Laserbridges.LASER_FENCE_SOURCE_BLOCK, ChunkSectionLayer.TRANSLUCENT);
-        BlockRenderLayerMap.putBlock(Laserbridges.LASER_FENCE_BLOCK, ChunkSectionLayer.TRANSLUCENT);
+//        BlockRenderLayerMap.putBlock(Laserbridges.LASER_BLOCK, ChunkSectionLayer.TRANSLUCENT);
+//        BlockRenderLayerMap.putBlock(Laserbridges.BRIDGE_SOURCE_BLOCK, ChunkSectionLayer.TRANSLUCENT);
+//        BlockRenderLayerMap.putBlock(Laserbridges.LASER_FENCE_SOURCE_BLOCK, ChunkSectionLayer.TRANSLUCENT);
+//        BlockRenderLayerMap.putBlock(Laserbridges.LASER_FENCE_BLOCK, ChunkSectionLayer.TRANSLUCENT);
+//
+        BlockColorRegistry.register(List.of(new BlockTintSource() {
+            @Override
+            public int color(BlockState state) {
+                return DyeColor.byId(state.getValue(COLOR)).getTextureDiffuseColor();
+                //return state.getValue(COLOR);
+            }
 
-        ColorProviderRegistry.BLOCK.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(COLOR))).getTextureDiffuseColor(), BRIDGE_SOURCE_BLOCK, LASER_FENCE_SOURCE_BLOCK, LASER_BLOCK, LASER_FENCE_BLOCK);
+            @Override
+            public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                return DyeColor.byId(state.getValue(COLOR)).getTextureDiffuseColor();
+            }
+        }), BRIDGE_SOURCE_BLOCK, LASER_FENCE_SOURCE_BLOCK, LASER_BLOCK, LASER_FENCE_BLOCK);
+
     }
 
     public static SoundEvent register(String name) {

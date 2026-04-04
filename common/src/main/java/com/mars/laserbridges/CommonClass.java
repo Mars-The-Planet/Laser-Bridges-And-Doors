@@ -3,6 +3,7 @@ package com.mars.laserbridges;
 import com.mars.deimos.config.DeimosConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
@@ -10,10 +11,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -34,8 +32,9 @@ public class CommonClass {
                 Block block = blockState.getBlock();
                 if(block.equals(BuiltInRegistries.BLOCK.get(Identifier.fromNamespaceAndPath(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME))) ||
                         block.equals(BuiltInRegistries.BLOCK.get(Identifier.fromNamespaceAndPath(MOD_ID, FENCE_SOURCE_BLOCK_NAME)))){
-                    Item item = stack.getItem();
-                    int col = ((DyeItem) item).getDyeColor().getId();
+                    //Item item = stack.getItem();
+                    int col = stack.get(DataComponents.DYE).getId();
+                    //int col = ((DyeItem) item).getDyeColor().getId();
                     serverLevel.setBlock(blockPos, blockState.setValue(COLOR, col), 2);
                     stack.shrink(1);
                     serverLevel.gameEvent((Entity)null, GameEvent.BLOCK_CHANGE, blockPos);
