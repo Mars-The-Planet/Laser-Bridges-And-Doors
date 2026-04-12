@@ -43,18 +43,18 @@ public class Laserbridges {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Registries.SOUND_EVENT, MOD_ID);
 
     public static final DeferredBlock<Block> BRIDGE_SOURCE_BLOCK = BLOCKS.registerBlock(BRIDGE_SOURCE_BLOCK_NAME, BridgeSourceBlock::new,
-            BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0));
+            () -> BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0));
     public static final DeferredItem<BlockItem> BRIDGE_SOURCE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem(BRIDGE_SOURCE_BLOCK_NAME, BRIDGE_SOURCE_BLOCK);
     public static final DeferredBlock<Block> LASER_BLOCK = BLOCKS.registerBlock(LASER_BLOCK_NAME, LaserBridgeBlock::new,
-            BlockBehaviour.Properties.of().strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((p_220871_) -> LIGHT));
+            () -> BlockBehaviour.Properties.of().strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((p_220871_) -> LIGHT));
 
     public static final DeferredBlock<Block> LASER_FENCE_SOURCE_BLOCK = BLOCKS.registerBlock(FENCE_SOURCE_BLOCK_NAME, FenceSourceBlock::new,
-            BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0));
+            () -> BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0));
 
     public static final DeferredItem<BlockItem> LASER_FENCE_SOURCE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem(FENCE_SOURCE_BLOCK_NAME, LASER_FENCE_SOURCE_BLOCK);
 
     public static final DeferredBlock<Block> LASER_FENCE_BLOCK = BLOCKS.registerBlock(LASER_FENCE_BLOCK_NAME, LaserFenceBlock::new,
-            BlockBehaviour.Properties.of().strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((p_220871_) -> LIGHT));
+            () -> BlockBehaviour.Properties.of().strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((p_220871_) -> LIGHT));
 
     public static final DeferredHolder<SoundEvent, SoundEvent> ON = registerSoundEvent(ON_NAME);
     public static final DeferredHolder<SoundEvent, SoundEvent> OFF = registerSoundEvent(OFF_NAME);
