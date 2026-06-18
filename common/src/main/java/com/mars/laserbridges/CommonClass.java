@@ -1,14 +1,14 @@
 package com.mars.laserbridges;
 
 import com.mars.deimos.config.DeimosConfig;
+import com.mars.laserbridges.blocks.BridgeSourceBlock;
+import com.mars.laserbridges.blocks.FenceSourceBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.*;
@@ -25,41 +25,54 @@ public class CommonClass {
 
         DefaultDispenseItemBehavior dyeBehavior = new OptionalDispenseItemBehavior() {
             protected ItemStack execute(BlockSource blockSource, ItemStack stack) {
+                System.out.println("EXECUTE DYE");
                 ServerLevel serverLevel = blockSource.level();
                 Direction direction = (Direction)blockSource.state().getValue(DispenserBlock.FACING);
                 BlockPos blockPos = blockSource.pos().relative(direction);
                 BlockState blockState = serverLevel.getBlockState(blockPos);
                 Block block = blockState.getBlock();
-                if(block.equals(BuiltInRegistries.BLOCK.get(Identifier.fromNamespaceAndPath(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME))) ||
-                        block.equals(BuiltInRegistries.BLOCK.get(Identifier.fromNamespaceAndPath(MOD_ID, FENCE_SOURCE_BLOCK_NAME)))){
-                    //Item item = stack.getItem();
+                String blockDesc = block.getDescriptionId();
+                if (blockDesc.equals("block."+MOD_ID+"."+BRIDGE_SOURCE_BLOCK_NAME) || blockDesc.equals("block."+MOD_ID+"."+FENCE_SOURCE_BLOCK_NAME)) {
+                    System.out.println("IN");
                     int col = stack.get(DataComponents.DYE).getId();
-                    //int col = ((DyeItem) item).getDyeColor().getId();
-                    serverLevel.setBlock(blockPos, blockState.setValue(COLOR, col), 2);
+                    BlockState newBlockState = blockState.setValue(COLOR, col);
+                    serverLevel.setBlock(blockPos, newBlockState, 3);
                     stack.shrink(1);
                     serverLevel.gameEvent((Entity)null, GameEvent.BLOCK_CHANGE, blockPos);
                     this.setSuccess(true);
+
+                    int redstonePower = serverLevel.getBestNeighborSignal(blockPos);
+                    if (blockDesc.equals("block."+MOD_ID+"."+BRIDGE_SOURCE_BLOCK_NAME)) {
+                        ((BridgeSourceBlock)block).generateBridge(serverLevel, redstonePower, blockPos, newBlockState);
+                    }
+                    else {
+                        ((FenceSourceBlock)block).generateBridge(serverLevel, redstonePower, blockPos, newBlockState);
+                    }
+                    System.out.println("COLOUR: " + col);
                     return stack;
+                }
+                else{
+                    System.out.println("WTF: " + block + ", " + block.defaultBlockState() + ", " + block.getDescriptionId());
                 }
                 return super.execute(blockSource, stack);
             }
         };
 
-        DispenserBlock.registerBehavior(Items.WHITE_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.ORANGE_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.MAGENTA_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.LIGHT_BLUE_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.YELLOW_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.LIME_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.PINK_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.GRAY_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.LIGHT_GRAY_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.CYAN_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.PURPLE_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.BLUE_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.BROWN_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.GREEN_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.RED_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.BLACK_DYE, dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.white(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.orange(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.magenta(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.lightBlue(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.yellow(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.lime(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.pink(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.gray(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.lightGray(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.cyan(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.purple(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.blue(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.brown(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.green(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.red(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.black(), dyeBehavior);
     }
 }
