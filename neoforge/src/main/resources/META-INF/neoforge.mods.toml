@@ -29,7 +29,7 @@ ordering = "NONE"
 side = "BOTH"
 [[dependencies."${mod_id}"]]
 modId = "deimos"
-mandatory = true
+type = "required"
 versionRange = "1"
 ordering = "NONE"
 side = "BOTH"

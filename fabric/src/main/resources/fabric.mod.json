@@ -15,10 +15,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.mars.laserbridges.Laserbridges"
+      "com.mars.laserbridges.LaserBridges"
     ],
     "client": [
-      "com.mars.laserbridges.Laserbridges"
+      "com.mars.laserbridges.LaserBridges"
     ]
   },
   "mixins": [

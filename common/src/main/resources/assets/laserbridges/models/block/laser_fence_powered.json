@@ -1,5 +1,6 @@
 {
   "credit": "Made with Blockbench",
+  "render_type": "minecraft:translucent",
   "textures": {
     "1": "laserbridges:block/laser_block_powered",
     "particle": "laserbridges:block/laser_block_powered"
