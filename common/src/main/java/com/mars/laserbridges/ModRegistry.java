@@ -2,10 +2,7 @@ package com.mars.laserbridges;
 
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
-import com.mars.laserbridges.blocks.BridgeAttachedSourceBlock;
-import com.mars.laserbridges.blocks.FenceAttachedSourceBlock;
-import com.mars.laserbridges.blocks.LaserBridgeBlock;
-import com.mars.laserbridges.blocks.LaserFenceBlock;
+import com.mars.laserbridges.blocks.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
@@ -32,6 +29,9 @@ public class ModRegistry {
     public static final Supplier<Block> FENCE_ATTACHED_SOURCE_BLOCK = Suppliers.memoize(() ->
             new FenceAttachedSourceBlock(BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
 
+    public static final Supplier<Block> BRIDGE_SOURCE_BLOCK = Suppliers.memoize(() ->
+            new BridgeSourceBlock(BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
+
     public static final Supplier<Block> LASER_BRIDGE_BLOCK = Suppliers.memoize(() ->
             new LaserBridgeBlock(BlockBehaviour.Properties.of().strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((state) -> LIGHT)));
 
@@ -45,6 +45,9 @@ public class ModRegistry {
     public static final Supplier<BlockItem> FENCE_ATTACHED_SOURCE_BLOCK_ITEM = Suppliers.memoize(() ->
             new BlockItem(FENCE_ATTACHED_SOURCE_BLOCK.get(), new Item.Properties()));
 
+    public static final Supplier<BlockItem> BRIDGE_SOURCE_BLOCK_ITEM = Suppliers.memoize(() ->
+            new BlockItem(BRIDGE_SOURCE_BLOCK.get(), new Item.Properties()));
+
     // Sound Events
     public static final Supplier<SoundEvent> SOUND_ON = Suppliers.memoize(() ->
             SoundEvent.createFixedRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, ON_NAME), 75f));
@@ -56,12 +59,15 @@ public class ModRegistry {
         // Blocks
         BLOCKS_REG.put(BRIDGE_ATTACHED_SOURCE_BLOCK_NAME, BRIDGE_ATTACHED_SOURCE_BLOCK);
         BLOCKS_REG.put(LASER_BRIDGE_BLOCK_NAME, LASER_BRIDGE_BLOCK);
+        BLOCKS_REG.put(BRIDGE_SOURCE_BLOCK_NAME, BRIDGE_SOURCE_BLOCK);
+
         BLOCKS_REG.put(FENCE_ATTACHED_SOURCE_BLOCK_NAME, FENCE_ATTACHED_SOURCE_BLOCK);
         BLOCKS_REG.put(LASER_FENCE_BLOCK_NAME, LASER_FENCE_BLOCK);
 
         // Items
         BLOCK_ITEMS_REG.put(BRIDGE_ATTACHED_SOURCE_BLOCK_NAME, BRIDGE_ATTACHED_SOURCE_BLOCK_ITEM);
         BLOCK_ITEMS_REG.put(FENCE_ATTACHED_SOURCE_BLOCK_NAME, FENCE_ATTACHED_SOURCE_BLOCK_ITEM);
+        BLOCK_ITEMS_REG.put(BRIDGE_SOURCE_BLOCK_NAME, BRIDGE_SOURCE_BLOCK_ITEM);
 
         // Sound Events
         SOUND_EVENTS_REG.put(ON_NAME, SOUND_ON);

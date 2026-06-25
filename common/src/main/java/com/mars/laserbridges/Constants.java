@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 public class Constants {
     public static final String BRIDGE_ATTACHED_SOURCE_BLOCK_NAME = "laser_source_block";
     public static final String FENCE_ATTACHED_SOURCE_BLOCK_NAME = "laser_fence_source_block";
+    public static final String BRIDGE_SOURCE_BLOCK_NAME = "laser_source_fullblock";
+    public static final String FENCE_SOURCE_BLOCK_NAME = "laser_fence_source_fullblock";
     public static final String LASER_BRIDGE_BLOCK_NAME = "laser_block_powered";
     public static final String LASER_FENCE_BLOCK_NAME = "laser_fence_powered";
     public static final String ON_NAME = "on";
