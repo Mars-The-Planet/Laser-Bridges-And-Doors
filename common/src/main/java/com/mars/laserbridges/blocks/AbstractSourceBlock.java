@@ -20,8 +20,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
-
 public abstract class AbstractSourceBlock extends HorizontalDirectionalBlock implements ISourceBlock{
 
     protected AbstractSourceBlock(Properties properties) {
@@ -29,7 +27,6 @@ public abstract class AbstractSourceBlock extends HorizontalDirectionalBlock imp
         registerDefaultState(defaultBlockState().setValue(POWERED, false).setValue(COLOR, 0));
     }
 
-    @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         for(Direction direction : context.getNearestLookingDirections()) {
             BlockState blockstate;

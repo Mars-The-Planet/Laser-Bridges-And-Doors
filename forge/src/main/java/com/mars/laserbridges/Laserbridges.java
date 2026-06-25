@@ -59,6 +59,8 @@ public class LaserBridges {
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS){
             event.accept(BRIDGE_ATTACHED_SOURCE_BLOCK_ITEM.get());
             event.accept(FENCE_ATTACHED_SOURCE_BLOCK_ITEM.get());
+            event.accept(BRIDGE_SOURCE_BLOCK.get());
+            event.accept(FENCE_SOURCE_BLOCK.get());
         }
     }
 }
