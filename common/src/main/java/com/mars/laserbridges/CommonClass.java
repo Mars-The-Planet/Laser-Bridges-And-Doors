@@ -32,17 +32,6 @@ public class CommonClass {
 
         DeimosConfig.init(MOD_ID, LaserBridgesConfig.class);
 
-        // Recipe generation
-        String attachedBridgeID = ResourceLocation.fromNamespaceAndPath(MOD_ID, BRIDGE_ATTACHED_SOURCE_BLOCK_NAME).toString();
-        String attachedFenceID = ResourceLocation.fromNamespaceAndPath(MOD_ID, FENCE_ATTACHED_SOURCE_BLOCK_NAME).toString();
-
-        DeimosRecipeGenerator.createShapedRecipeJson(
-                Lists.newArrayList("minecraft:iron_ingot", "minecraft:glass", "minecraft:end_crystal"),
-                Lists.newArrayList("IGI", "IEI", "III"), attachedBridgeID);
-
-        DeimosRecipeGenerator.createItemConvertorJson(attachedBridgeID, attachedFenceID, 1);
-        DeimosRecipeGenerator.createItemConvertorJson(attachedFenceID, attachedBridgeID, 1);
-
         // Dispensers dying laser sources
         DefaultDispenseItemBehavior dyeBehavior = new OptionalDispenseItemBehavior() {
             protected ItemStack execute(BlockSource blockSource, ItemStack stack) {
@@ -80,5 +69,33 @@ public class CommonClass {
         DispenserBlock.registerBehavior(Items.GREEN_DYE, dyeBehavior);
         DispenserBlock.registerBehavior(Items.RED_DYE, dyeBehavior);
         DispenserBlock.registerBehavior(Items.BLACK_DYE, dyeBehavior);
+
+        // Recipe generation
+        String attachedBridgeID = ResourceLocation.fromNamespaceAndPath(MOD_ID, BRIDGE_ATTACHED_SOURCE_BLOCK_NAME).toString();
+        String attachedFenceID = ResourceLocation.fromNamespaceAndPath(MOD_ID, FENCE_ATTACHED_SOURCE_BLOCK_NAME).toString();
+        String bridgeID = ResourceLocation.fromNamespaceAndPath(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME).toString();
+        String fenceID = ResourceLocation.fromNamespaceAndPath(MOD_ID, FENCE_SOURCE_BLOCK_NAME).toString();
+
+        DeimosRecipeGenerator.createShapedRecipeJson(
+                Lists.newArrayList("minecraft:iron_ingot", "minecraft:glass", "minecraft:end_crystal"),
+                Lists.newArrayList("IGI", "IEI", "III"), attachedBridgeID);
+
+        DeimosRecipeGenerator.createShapedRecipeJson(
+                Lists.newArrayList("minecraft:iron_ingot", "minecraft:end_crystal", "minecraft:glass"),
+                Lists.newArrayList("III", "IEG", "III"), attachedFenceID);
+
+        DeimosRecipeGenerator.createItemConvertorJson(attachedBridgeID, attachedFenceID, 1);
+        DeimosRecipeGenerator.createItemConvertorJson(attachedFenceID, attachedBridgeID, 1);
+
+        DeimosRecipeGenerator.createShapedRecipeJson(
+                Lists.newArrayList(attachedBridgeID, "minecraft:iron_ingot"),
+                Lists.newArrayList(" B ", "III", "III"), bridgeID);
+
+        DeimosRecipeGenerator.createShapedRecipeJson(
+                Lists.newArrayList("minecraft:iron_ingot", attachedFenceID),
+                Lists.newArrayList("II ", "IIF", "II "), fenceID);
+
+        DeimosRecipeGenerator.createItemConvertorJson(bridgeID, fenceID, 1);
+        DeimosRecipeGenerator.createItemConvertorJson(fenceID, bridgeID, 1);
     }
 }
