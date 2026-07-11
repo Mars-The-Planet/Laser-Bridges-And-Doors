@@ -1,5 +1,6 @@
-package com.mars.laserbridges.blocks;
+package com.mars.laserbridges.blocks.source;
 
+import com.mars.laserbridges.blocks.ILaserGeneratingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -31,9 +32,9 @@ public abstract class AbstractSourceBlock extends HorizontalDirectionalBlock imp
         for(Direction direction : context.getNearestLookingDirections()) {
             BlockState blockstate;
             if (direction.getAxis() == Direction.Axis.Y) {
-                blockstate = this.defaultBlockState().setValue(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(ISourceBlock.FACING, context.getHorizontalDirection());
+                blockstate = this.defaultBlockState().setValue(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(ILaserGeneratingBlock.FACING, context.getHorizontalDirection());
             } else {
-                blockstate = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(ISourceBlock.FACING, direction.getOpposite());
+                blockstate = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(ILaserGeneratingBlock.FACING, direction.getOpposite());
             }
 
             if (blockstate.canSurvive(context.getLevel(), context.getClickedPos())) {
@@ -46,10 +47,10 @@ public abstract class AbstractSourceBlock extends HorizontalDirectionalBlock imp
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(ISourceBlock.FACING, ISourceBlock.FACE, ISourceBlock.POWERED, ISourceBlock.COLOR);
+        builder.add(ILaserGeneratingBlock.FACING, ILaserGeneratingBlock.FACE, ILaserGeneratingBlock.POWERED, ILaserGeneratingBlock.COLOR);
     }
 
-    public abstract Block LaserBlockType();
+    public abstract Block getLaserBlock();
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {

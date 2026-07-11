@@ -1,8 +1,6 @@
 package com.mars.laserbridges;
 
-import com.mars.laserbridges.blocks.ISourceBlock;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
+import com.mars.laserbridges.blocks.ILaserGeneratingBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -15,7 +13,6 @@ import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -51,7 +48,7 @@ public class LaserBridges {
 
         @SubscribeEvent
         public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
-            BLOCKS_REG.forEach((s, blockSupplier) -> event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(ISourceBlock.COLOR))).getTextureDiffuseColor(), blockSupplier.get()));
+            BLOCKS_REG.forEach((s, blockSupplier) -> event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(ILaserGeneratingBlock.COLOR))).getTextureDiffuseColor(), blockSupplier.get()));
         }
     }
 

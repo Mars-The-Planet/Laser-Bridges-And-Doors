@@ -1,4 +1,4 @@
-package com.mars.laserbridges.blocks;
+package com.mars.laserbridges.blocks.source;
 
 import com.mars.laserbridges.Constants;
 import com.mojang.serialization.MapCodec;
@@ -38,7 +38,7 @@ public class BridgeSourceBlock extends AbstractSourceBlock {
     }
 
     @Override
-    public Block LaserBlockType() {
+    public Block getLaserBlock() {
         return LASER_BRIDGE_BLOCK.get();
     }
 

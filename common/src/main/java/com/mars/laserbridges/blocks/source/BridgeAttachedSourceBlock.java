@@ -1,4 +1,4 @@
-package com.mars.laserbridges.blocks;
+package com.mars.laserbridges.blocks.source;
 
 import com.mars.laserbridges.Constants;
 import com.mojang.serialization.MapCodec;
@@ -7,39 +7,39 @@ import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import static com.mars.laserbridges.ModRegistry.LASER_FENCE_BLOCK;
+import static com.mars.laserbridges.ModRegistry.LASER_BRIDGE_BLOCK;
 
-public class FenceAttachedSourceBlock extends AbstractAttachedSourceBlock{
+public class BridgeAttachedSourceBlock extends AbstractAttachedSourceBlock{
 
-    protected static final VoxelShape CEILING_X_SHAPE = Block.box(0, 14, 5, 16, 16, 11);
-    protected static final VoxelShape CEILING_Z_SHAPE = Block.box(5, 14, 0, 11, 16, 16);
-    protected static final VoxelShape CEILING_X_POWERED_SHAPE = Shapes.or(CEILING_X_SHAPE, Constants.CEILING_Z_SHAPE);
-    protected static final VoxelShape CEILING_Z_POWERED_SHAPE = Shapes.or(CEILING_Z_SHAPE, Constants.CEILING_X_SHAPE);
+    protected static final VoxelShape CEILING_X_SHAPE = Block.box(5, 14, 0, 11, 16, 16);
+    protected static final VoxelShape CEILING_Z_SHAPE = Block.box(0, 14, 5, 16, 16, 11);
+    protected static final VoxelShape CEILING_X_POWERED_SHAPE = Shapes.or(CEILING_X_SHAPE, Constants.CEILING_X_SHAPE);
+    protected static final VoxelShape CEILING_Z_POWERED_SHAPE = Shapes.or(CEILING_Z_SHAPE, Constants.CEILING_Z_SHAPE);
 
-    protected static final VoxelShape FLOOR_X_SHAPE = Block.box(0, 0, 5, 16, 2, 11);
-    protected static final VoxelShape FLOOR_Z_SHAPE = Block.box(5, 0, 0, 11, 2, 16);
-    protected static final VoxelShape FLOOR_X_POWERED_SHAPE = Shapes.or(FLOOR_X_SHAPE, Constants.FLOOR_Z_SHAPE);
-    protected static final VoxelShape FLOOR_Z_POWERED_SHAPE = Shapes.or(FLOOR_Z_SHAPE, Constants.FLOOR_X_SHAPE);
+    protected static final VoxelShape FLOOR_X_SHAPE = Block.box(5, 0, 0, 11, 2, 16);
+    protected static final VoxelShape FLOOR_Z_SHAPE = Block.box(0, 0, 5, 16, 2, 11);
+    protected static final VoxelShape FLOOR_X_POWERED_SHAPE = Shapes.or(FLOOR_X_SHAPE, Constants.FLOOR_X_SHAPE);
+    protected static final VoxelShape FLOOR_Z_POWERED_SHAPE = Shapes.or(FLOOR_Z_SHAPE, Constants.FLOOR_Z_SHAPE);
 
-    protected static final VoxelShape NORTH_SHAPE = Block.box(5, 0, 14, 11, 16, 16);
-    protected static final VoxelShape SOUTH_SHAPE = Block.box(5, 0, 0, 11, 16, 2);
-    protected static final VoxelShape WEST_SHAPE = Block.box(14, 0, 5, 16, 16, 11);
-    protected static final VoxelShape EAST_SHAPE = Block.box(0, 0, 5, 2, 16, 11);
+    protected static final VoxelShape NORTH_SHAPE = Block.box(0, 5, 14, 16, 11, 16);
+    protected static final VoxelShape SOUTH_SHAPE = Block.box(0, 5, 0, 16, 11, 2);
+    protected static final VoxelShape WEST_SHAPE = Block.box(14, 5, 0, 16, 11, 16);
+    protected static final VoxelShape EAST_SHAPE = Block.box(0, 5, 0, 2, 11, 16);
 
-    protected static final VoxelShape NORTH_POWERED_SHAPE = Shapes.or(NORTH_SHAPE, Block.box(7.99999, 0, 0, 8, 16, 16));
-    protected static final VoxelShape SOUTH_POWERED_SHAPE = Shapes.or(SOUTH_SHAPE, Block.box(7.99999, 0, 0, 8, 16, 16));
-    protected static final VoxelShape WEST_POWERED_SHAPE = Shapes.or(WEST_SHAPE, Block.box(0, 0, 7.99999, 16, 16, 8));
-    protected static final VoxelShape EAST_POWERED_SHAPE = Shapes.or(EAST_SHAPE, Block.box(0, 0, 7.99999, 16, 16, 8));
+    protected static final VoxelShape NORTH_POWERED_SHAPE = Shapes.or(NORTH_SHAPE, Constants.NORTH_SHAPE);
+    protected static final VoxelShape SOUTH_POWERED_SHAPE = Shapes.or(SOUTH_SHAPE, Constants.SOUTH_SHAPE);
+    protected static final VoxelShape WEST_POWERED_SHAPE = Shapes.or(WEST_SHAPE, Constants.WEST_SHAPE);
+    protected static final VoxelShape EAST_POWERED_SHAPE = Shapes.or(EAST_SHAPE, Constants.EAST_SHAPE);
 
-    public static final MapCodec<FenceAttachedSourceBlock> CODEC = simpleCodec(FenceAttachedSourceBlock::new);
+    public static final MapCodec<BridgeAttachedSourceBlock> CODEC = simpleCodec(BridgeAttachedSourceBlock::new);
 
-    public FenceAttachedSourceBlock(Properties properties) {
+    public BridgeAttachedSourceBlock(Properties properties) {
         super(properties);
     }
 
     @Override
-    public Block LaserBlockType() {
-        return LASER_FENCE_BLOCK.get();
+    public Block getLaserBlock() {
+        return LASER_BRIDGE_BLOCK.get();
     }
 
     @Override

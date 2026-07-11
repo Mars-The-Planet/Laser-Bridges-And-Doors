@@ -1,44 +1,44 @@
-package com.mars.laserbridges.blocks;
+package com.mars.laserbridges.blocks.source;
 
 import com.mars.laserbridges.Constants;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import static com.mars.laserbridges.ModRegistry.LASER_FENCE_BLOCK;
 
-public class FenceSourceBlock extends AbstractSourceBlock {
+public class FenceAttachedSourceBlock extends AbstractAttachedSourceBlock{
 
-    protected static final VoxelShape CEILING_X_SHAPE = Shapes.or(Block.box(0, 3, 0, 16, 16, 16), Block.box(0, 1, 5, 16, 3, 11));
-    protected static final VoxelShape CEILING_Z_SHAPE = Shapes.or(Block.box(0, 3, 0, 16, 16, 16), Block.box(5, 1, 0, 11, 3, 16));
+    protected static final VoxelShape CEILING_X_SHAPE = Block.box(0, 14, 5, 16, 16, 11);
+    protected static final VoxelShape CEILING_Z_SHAPE = Block.box(5, 14, 0, 11, 16, 16);
     protected static final VoxelShape CEILING_X_POWERED_SHAPE = Shapes.or(CEILING_X_SHAPE, Constants.CEILING_Z_SHAPE);
     protected static final VoxelShape CEILING_Z_POWERED_SHAPE = Shapes.or(CEILING_Z_SHAPE, Constants.CEILING_X_SHAPE);
 
-    protected static final VoxelShape FLOOR_X_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 13, 16), Block.box(0, 13, 5, 16, 15, 11));
-    protected static final VoxelShape FLOOR_Z_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 13, 16), Block.box(5, 13, 0, 11, 15, 16));
+    protected static final VoxelShape FLOOR_X_SHAPE = Block.box(0, 0, 5, 16, 2, 11);
+    protected static final VoxelShape FLOOR_Z_SHAPE = Block.box(5, 0, 0, 11, 2, 16);
     protected static final VoxelShape FLOOR_X_POWERED_SHAPE = Shapes.or(FLOOR_X_SHAPE, Constants.FLOOR_Z_SHAPE);
     protected static final VoxelShape FLOOR_Z_POWERED_SHAPE = Shapes.or(FLOOR_Z_SHAPE, Constants.FLOOR_X_SHAPE);
 
-    protected static final VoxelShape NORTH_SHAPE = Shapes.or(Block.box(0, 0, 3, 16, 16, 16), Block.box(5, 0, 1, 11, 16, 3));
-    protected static final VoxelShape SOUTH_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 13), Block.box(5, 0, 13, 11, 16, 15));
-    protected static final VoxelShape WEST_SHAPE = Shapes.or(Block.box(3, 0, 0, 16, 16, 16), Block.box(1, 0, 5, 3, 16, 11));
-    protected static final VoxelShape EAST_SHAPE = Shapes.or(Block.box(0, 0, 0, 13, 16, 16), Block.box(13, 0, 5, 15, 16, 11));
+    protected static final VoxelShape NORTH_SHAPE = Block.box(5, 0, 14, 11, 16, 16);
+    protected static final VoxelShape SOUTH_SHAPE = Block.box(5, 0, 0, 11, 16, 2);
+    protected static final VoxelShape WEST_SHAPE = Block.box(14, 0, 5, 16, 16, 11);
+    protected static final VoxelShape EAST_SHAPE = Block.box(0, 0, 5, 2, 16, 11);
 
     protected static final VoxelShape NORTH_POWERED_SHAPE = Shapes.or(NORTH_SHAPE, Block.box(7.99999, 0, 0, 8, 16, 16));
     protected static final VoxelShape SOUTH_POWERED_SHAPE = Shapes.or(SOUTH_SHAPE, Block.box(7.99999, 0, 0, 8, 16, 16));
     protected static final VoxelShape WEST_POWERED_SHAPE = Shapes.or(WEST_SHAPE, Block.box(0, 0, 7.99999, 16, 16, 8));
     protected static final VoxelShape EAST_POWERED_SHAPE = Shapes.or(EAST_SHAPE, Block.box(0, 0, 7.99999, 16, 16, 8));
 
-    public static final MapCodec<FenceSourceBlock> CODEC = simpleCodec(FenceSourceBlock::new);
+    public static final MapCodec<FenceAttachedSourceBlock> CODEC = simpleCodec(FenceAttachedSourceBlock::new);
 
-    public FenceSourceBlock(Properties properties) {
+    public FenceAttachedSourceBlock(Properties properties) {
         super(properties);
     }
 
     @Override
-    public Block LaserBlockType() {
+    public Block getLaserBlock() {
         return LASER_FENCE_BLOCK.get();
     }
 
@@ -123,7 +123,7 @@ public class FenceSourceBlock extends AbstractSourceBlock {
     }
 
     @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+    protected MapCodec<? extends FaceAttachedHorizontalDirectionalBlock> codec() {
         return CODEC;
     }
 }

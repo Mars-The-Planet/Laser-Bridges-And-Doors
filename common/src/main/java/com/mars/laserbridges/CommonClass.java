@@ -3,7 +3,7 @@ package com.mars.laserbridges;
 import com.google.common.collect.Lists;
 import com.mars.deimos.config.DeimosConfig;
 import com.mars.deimos.datagen.DeimosRecipeGenerator;
-import com.mars.laserbridges.blocks.ISourceBlock;
+import com.mars.laserbridges.blocks.source.ISourceBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.BlockSource;
@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import static com.mars.laserbridges.Constants.*;
-import static com.mars.laserbridges.blocks.ISourceBlock.COLOR;
+import static com.mars.laserbridges.blocks.ILaserGeneratingBlock.COLOR;
 
 public class CommonClass {
 

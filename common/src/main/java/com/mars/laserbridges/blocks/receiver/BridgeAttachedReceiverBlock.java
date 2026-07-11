@@ -1,4 +1,4 @@
-package com.mars.laserbridges.blocks;
+package com.mars.laserbridges.blocks.receiver;
 
 import com.mars.laserbridges.Constants;
 import com.mojang.serialization.MapCodec;
@@ -7,9 +7,7 @@ import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import static com.mars.laserbridges.ModRegistry.LASER_BRIDGE_BLOCK;
-
-public class BridgeAttachedSourceBlock extends AbstractAttachedSourceBlock{
+public class BridgeAttachedReceiverBlock extends AbstractAttachedReceiverBlock{
 
     protected static final VoxelShape CEILING_X_SHAPE = Block.box(5, 14, 0, 11, 16, 16);
     protected static final VoxelShape CEILING_Z_SHAPE = Block.box(0, 14, 5, 16, 16, 11);
@@ -31,15 +29,10 @@ public class BridgeAttachedSourceBlock extends AbstractAttachedSourceBlock{
     protected static final VoxelShape WEST_POWERED_SHAPE = Shapes.or(WEST_SHAPE, Constants.WEST_SHAPE);
     protected static final VoxelShape EAST_POWERED_SHAPE = Shapes.or(EAST_SHAPE, Constants.EAST_SHAPE);
 
-    public static final MapCodec<BridgeAttachedSourceBlock> CODEC = simpleCodec(BridgeAttachedSourceBlock::new);
+    public static final MapCodec<BridgeAttachedReceiverBlock> CODEC = simpleCodec(BridgeAttachedReceiverBlock::new);
 
-    public BridgeAttachedSourceBlock(Properties properties) {
+    public BridgeAttachedReceiverBlock(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    public Block LaserBlockType() {
-        return LASER_BRIDGE_BLOCK.get();
     }
 
     @Override

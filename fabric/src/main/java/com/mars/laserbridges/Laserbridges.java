@@ -14,7 +14,7 @@ import net.minecraft.world.item.DyeColor;
 
 import static com.mars.laserbridges.Constants.MOD_ID;
 import static com.mars.laserbridges.ModRegistry.*;
-import static com.mars.laserbridges.blocks.ISourceBlock.COLOR;
+import static com.mars.laserbridges.blocks.ILaserGeneratingBlock.COLOR;
 
 public class LaserBridges implements ModInitializer, ClientModInitializer {
 

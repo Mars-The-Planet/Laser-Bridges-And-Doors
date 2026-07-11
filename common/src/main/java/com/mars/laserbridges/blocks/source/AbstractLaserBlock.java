@@ -1,5 +1,6 @@
-package com.mars.laserbridges.blocks;
+package com.mars.laserbridges.blocks.source;
 
+import com.mars.laserbridges.blocks.ILaserGeneratingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -14,7 +15,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public abstract class AbstractLaserBlock extends HorizontalDirectionalBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
-    public static final IntegerProperty COLOR = ISourceBlock.COLOR;
+    public static final IntegerProperty COLOR = ILaserGeneratingBlock.COLOR;
 
     protected abstract VoxelShape getCeilingXShape();
     protected abstract VoxelShape getCeilingZShape();

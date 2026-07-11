@@ -1,5 +1,6 @@
-package com.mars.laserbridges.blocks;
+package com.mars.laserbridges.blocks.source;
 
+import com.mars.laserbridges.blocks.ILaserGeneratingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -26,10 +27,10 @@ public abstract class AbstractAttachedSourceBlock extends FaceAttachedHorizontal
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(ISourceBlock.FACING, ISourceBlock.FACE, ISourceBlock.POWERED, ISourceBlock.COLOR);
+        builder.add(ILaserGeneratingBlock.FACING, ILaserGeneratingBlock.FACE, ILaserGeneratingBlock.POWERED, ILaserGeneratingBlock.COLOR);
     }
 
-    public abstract Block LaserBlockType();
+    public abstract Block getLaserBlock();
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
