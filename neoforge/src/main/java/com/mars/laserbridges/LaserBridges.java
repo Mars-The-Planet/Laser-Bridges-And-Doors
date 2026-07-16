@@ -1,6 +1,6 @@
 package com.mars.laserbridges;
 
-import com.mars.laserbridges.blocks.ISourceBlock;
+import com.mars.laserbridges.blocks.ILaserGeneratingBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -43,7 +43,7 @@ public class LaserBridges {
 
         @SubscribeEvent
         public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
-            BLOCKS_REG.forEach((s, blockSupplier) -> event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(ISourceBlock.COLOR))).getTextureDiffuseColor(), blockSupplier.get()));
+            BLOCKS_REG.forEach((s, blockSupplier) -> event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(ILaserGeneratingBlock.COLOR))).getTextureDiffuseColor(), blockSupplier.get()));
         }
     }
 
@@ -51,6 +51,8 @@ public class LaserBridges {
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS){
             event.accept(BRIDGE_ATTACHED_SOURCE_BLOCK_ITEM.get());
             event.accept(FENCE_ATTACHED_SOURCE_BLOCK_ITEM.get());
+            event.accept(BRIDGE_SOURCE_BLOCK.get());
+            event.accept(FENCE_SOURCE_BLOCK.get());
         }
     }
 }
