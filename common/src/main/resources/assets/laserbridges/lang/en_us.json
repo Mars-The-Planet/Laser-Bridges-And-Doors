@@ -6,6 +6,7 @@
   "block.laserbridges.laser_fence_source_block": "Laser Fence Source",
   "block.laserbridges.laser_source_fullblock": "Laser Source Block",
   "block.laserbridges.laser_fence_source_fullblock": "Laser Fence Source Block",
+  "block.laserbridges.laser_attached_receiver": "Laser Receiver",
   "block.laserbridges.laser_block_powered": "Laser Block",
   "block.laserbridges.laser_fence_powered": "Laser Block"
 }

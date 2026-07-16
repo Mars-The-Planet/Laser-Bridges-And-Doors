@@ -31,6 +31,7 @@ public class LaserBridges implements ModInitializer, ClientModInitializer {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(FENCE_ATTACHED_SOURCE_BLOCK.get()));
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(BRIDGE_SOURCE_BLOCK.get()));
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(FENCE_SOURCE_BLOCK.get()));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(BRIDGE_ATTACHED_RECEIVER_BLOCK.get()));
     }
 
     @Override
