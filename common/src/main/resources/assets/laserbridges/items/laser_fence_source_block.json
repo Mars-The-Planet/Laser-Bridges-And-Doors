@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "laserbridges:item/laser_fence_source_block"
+  }
+}
