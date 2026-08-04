@@ -9,7 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeItem;
@@ -71,10 +71,10 @@ public class CommonClass {
         DispenserBlock.registerBehavior(Items.BLACK_DYE, dyeBehavior);
 
         // Recipe generation
-        String attachedBridgeID = ResourceLocation.fromNamespaceAndPath(MOD_ID, BRIDGE_ATTACHED_SOURCE_BLOCK_NAME).toString();
-        String attachedFenceID = ResourceLocation.fromNamespaceAndPath(MOD_ID, FENCE_ATTACHED_SOURCE_BLOCK_NAME).toString();
-        String bridgeID = ResourceLocation.fromNamespaceAndPath(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME).toString();
-        String fenceID = ResourceLocation.fromNamespaceAndPath(MOD_ID, FENCE_SOURCE_BLOCK_NAME).toString();
+        String attachedBridgeID = Identifier.fromNamespaceAndPath(MOD_ID, BRIDGE_ATTACHED_SOURCE_BLOCK_NAME).toString();
+        String attachedFenceID = Identifier.fromNamespaceAndPath(MOD_ID, FENCE_ATTACHED_SOURCE_BLOCK_NAME).toString();
+        String bridgeID = Identifier.fromNamespaceAndPath(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME).toString();
+        String fenceID = Identifier.fromNamespaceAndPath(MOD_ID, FENCE_SOURCE_BLOCK_NAME).toString();
 
         DeimosRecipeGenerator.createShapedRecipeJson(
                 Lists.newArrayList("minecraft:iron_ingot", "minecraft:glass", "minecraft:end_crystal"),

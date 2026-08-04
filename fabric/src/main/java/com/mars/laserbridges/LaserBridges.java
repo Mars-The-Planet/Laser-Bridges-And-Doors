@@ -8,7 +8,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DyeColor;
 
@@ -23,9 +23,9 @@ public class LaserBridges implements ModInitializer, ClientModInitializer {
 
         CommonClass.init();
 
-        BLOCKS_REG.forEach((s, blockSupplier) -> Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath(MOD_ID, s), blockSupplier.get()));
-        BLOCK_ITEMS_REG.forEach((s, blockItemSupplier) -> Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, s), blockItemSupplier.get()));
-        SOUND_EVENTS_REG.forEach((s, soundEventSupplier) -> Registry.register(BuiltInRegistries.SOUND_EVENT, ResourceLocation.fromNamespaceAndPath(MOD_ID, s), soundEventSupplier.get()));
+        BLOCKS_REG.forEach((s, blockSupplier) -> Registry.register(BuiltInRegistries.BLOCK, Identifier.fromNamespaceAndPath(MOD_ID, s), blockSupplier.get()));
+        BLOCK_ITEMS_REG.forEach((s, blockItemSupplier) -> Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(MOD_ID, s), blockItemSupplier.get()));
+        SOUND_EVENTS_REG.forEach((s, soundEventSupplier) -> Registry.register(BuiltInRegistries.SOUND_EVENT, Identifier.fromNamespaceAndPath(MOD_ID, s), soundEventSupplier.get()));
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(BRIDGE_ATTACHED_SOURCE_BLOCK.get()));
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(FENCE_ATTACHED_SOURCE_BLOCK.get()));

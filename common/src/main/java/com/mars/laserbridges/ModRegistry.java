@@ -5,7 +5,7 @@ import com.google.common.base.Suppliers;
 import com.mars.laserbridges.blocks.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -58,10 +58,10 @@ public class ModRegistry {
 
     // Sound Events
     public static final Supplier<SoundEvent> SOUND_ON = Suppliers.memoize(() ->
-            SoundEvent.createFixedRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, ON_NAME), 75f));
+            SoundEvent.createFixedRangeEvent(Identifier.fromNamespaceAndPath(MOD_ID, ON_NAME), 75f));
 
     public static final Supplier<SoundEvent> SOUND_OFF = Suppliers.memoize(() ->
-            SoundEvent.createFixedRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, OFF_NAME), 75f));
+            SoundEvent.createFixedRangeEvent(Identifier.fromNamespaceAndPath(MOD_ID, OFF_NAME), 75f));
 
     public static void RegisterSetup() {
         // Blocks
@@ -86,12 +86,12 @@ public class ModRegistry {
 
     // Helper methods
     private static BlockBehaviour.Properties blockProps(String name) {
-        ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(MOD_ID, name));
+        ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(MOD_ID, name));
         return BlockBehaviour.Properties.of().setId(key);
     }
 
     private static Item.Properties itemProps(String name) {
-        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, name));
+        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(MOD_ID, name));
         return new Item.Properties().setId(key);
     }
 }
