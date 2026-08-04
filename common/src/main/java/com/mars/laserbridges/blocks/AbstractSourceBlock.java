@@ -80,7 +80,7 @@ public abstract class AbstractSourceBlock extends HorizontalDirectionalBlock imp
     }
 
     @Override
-    public void onRemove(BlockState state, Level lvl, BlockPos pos, BlockState newState, boolean movedByPiston) {
+    public void affectNeighborsAfterRemoval(BlockState state, ServerLevel lvl, BlockPos pos, boolean movedByPiston) {
         handleOnRemove(state, lvl, pos);
     }
 }
