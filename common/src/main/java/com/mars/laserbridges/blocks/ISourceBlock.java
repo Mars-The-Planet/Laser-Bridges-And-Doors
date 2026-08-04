@@ -124,7 +124,7 @@ public interface ISourceBlock {
     }
 
     default void handleNeighborChanged(Block blockInstance, BlockState state, Level lvl, BlockPos pos) {
-        if (lvl.isClientSide)
+        if (lvl.isClientSide())
             return;
 
         int redstonePower = lvl.getBestNeighborSignal(pos);
@@ -145,7 +145,7 @@ public interface ISourceBlock {
     }
 
     default void handleTick(BlockState state, ServerLevel lvl, BlockPos pos) {
-        if (lvl.isClientSide)
+        if (lvl.isClientSide())
             return;
 
         if (state.getValue(POWERED)) {
@@ -161,7 +161,7 @@ public interface ISourceBlock {
     }
 
     default void handleOnPlace(Block blockInstance, BlockState state, Level lvl, BlockPos pos) {
-        if (lvl.isClientSide)
+        if (lvl.isClientSide())
             return;
 
         boolean bl = state.getValue(POWERED);
@@ -179,7 +179,7 @@ public interface ISourceBlock {
     }
 
     default void handleOnRemove(BlockState state, Level lvl, BlockPos pos) {
-        if (!lvl.isClientSide) {
+        if (!lvl.isClientSide()) {
             lvl.playSound((Player)null, pos, SoundEvents.METAL_BREAK, SoundSource.BLOCKS, 0.3F, 0.5F);
             generateBridge(lvl, 0, pos, state);
         }
