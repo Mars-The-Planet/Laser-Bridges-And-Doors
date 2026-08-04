@@ -8,7 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
@@ -25,7 +25,7 @@ import static com.mars.laserbridges.ModRegistry.SOUND_OFF;
 import static com.mars.laserbridges.ModRegistry.SOUND_ON;
 
 public interface ISourceBlock {
-    DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
     BooleanProperty POWERED = BlockStateProperties.POWERED;
     IntegerProperty COLOR = IntegerProperty.create("color", 0, 15);
@@ -110,17 +110,17 @@ public interface ISourceBlock {
         return powered ? getPoweredCeilingZShape() : getCeilingZShape();
     }
 
-    default ItemInteractionResult handleUseItemOn(ItemStack stack, BlockState state, Level lvl, BlockPos pos, Player player) {
+    default InteractionResult handleUseItemOn(ItemStack stack, BlockState state, Level lvl, BlockPos pos, Player player) {
         Item item = stack.getItem();
         if (item instanceof DyeItem) {
             int col = ((DyeItem) item).getDyeColor().getId();
             stack.consume(1, player);
             player.awardStat(Stats.ITEM_USED.get(item));
             lvl.setBlock(pos, state.setValue(COLOR, col), 3);
-            return ItemInteractionResult.sidedSuccess(lvl.isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     default void handleNeighborChanged(Block blockInstance, BlockState state, Level lvl, BlockPos pos) {

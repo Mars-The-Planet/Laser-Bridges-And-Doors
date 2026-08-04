@@ -3,9 +3,13 @@
   "laserbridges.deimosconfig.max_length": "Bridge length with maximum Redstone power",
   "laserbridges.deimosconfig.blocks_cut_through_by_lasers": "Blocks that can be replaced by lasers",
   "block.laserbridges.laser_source_block": "Laser Source",
+  "item.laserbridges.laser_source_block": "Laser Source",
   "block.laserbridges.laser_fence_source_block": "Laser Fence Source",
+  "item.laserbridges.laser_fence_source_block": "Laser Fence Source",
   "block.laserbridges.laser_source_fullblock": "Laser Source Block",
+  "item.laserbridges.laser_source_fullblock": "Laser Source Block",
   "block.laserbridges.laser_fence_source_fullblock": "Laser Fence Source Block",
+  "item.laserbridges.laser_fence_source_fullblock": "Laser Fence Source Block",
   "block.laserbridges.laser_block_powered": "Laser Block",
   "block.laserbridges.laser_fence_powered": "Laser Block"
 }

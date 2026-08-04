@@ -3,6 +3,8 @@ package com.mars.laserbridges;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import com.mars.laserbridges.blocks.*;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
@@ -24,35 +26,35 @@ public class ModRegistry {
 
     // BLocks
     public static final Supplier<Block> BRIDGE_ATTACHED_SOURCE_BLOCK = Suppliers.memoize(() ->
-            new BridgeAttachedSourceBlock(BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
+            new BridgeAttachedSourceBlock(blockProps(BRIDGE_ATTACHED_SOURCE_BLOCK_NAME).strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
 
     public static final Supplier<Block> FENCE_ATTACHED_SOURCE_BLOCK = Suppliers.memoize(() ->
-            new FenceAttachedSourceBlock(BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
+            new FenceAttachedSourceBlock(blockProps(FENCE_ATTACHED_SOURCE_BLOCK_NAME).strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
 
     public static final Supplier<Block> BRIDGE_SOURCE_BLOCK = Suppliers.memoize(() ->
-            new BridgeSourceBlock(BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> LIGHT)));
+            new BridgeSourceBlock(blockProps(BRIDGE_SOURCE_BLOCK_NAME).strength(0.8f).noOcclusion().lightLevel((state) -> LIGHT)));
 
     public static final Supplier<Block> FENCE_SOURCE_BLOCK = Suppliers.memoize(() ->
-            new FenceSourceBlock(BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> LIGHT)));
+            new FenceSourceBlock(blockProps(FENCE_SOURCE_BLOCK_NAME).strength(0.8f).noOcclusion().lightLevel((state) -> LIGHT)));
 
     public static final Supplier<Block> LASER_BRIDGE_BLOCK = Suppliers.memoize(() ->
-            new LaserBridgeBlock(BlockBehaviour.Properties.of().strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((state) -> LIGHT)));
+            new LaserBridgeBlock(blockProps(LASER_BRIDGE_BLOCK_NAME).strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((state) -> LIGHT)));
 
     public static final Supplier<Block> LASER_FENCE_BLOCK = Suppliers.memoize(() ->
-            new LaserFenceBlock(BlockBehaviour.Properties.of().strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((state) -> LIGHT)));
+            new LaserFenceBlock(blockProps(LASER_FENCE_BLOCK_NAME).strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((state) -> LIGHT)));
 
     // Items
     public static final Supplier<BlockItem> BRIDGE_ATTACHED_SOURCE_BLOCK_ITEM = Suppliers.memoize(() ->
-            new BlockItem(BRIDGE_ATTACHED_SOURCE_BLOCK.get(), new Item.Properties()));
+            new BlockItem(BRIDGE_ATTACHED_SOURCE_BLOCK.get(), itemProps(BRIDGE_ATTACHED_SOURCE_BLOCK_NAME)));
 
     public static final Supplier<BlockItem> FENCE_ATTACHED_SOURCE_BLOCK_ITEM = Suppliers.memoize(() ->
-            new BlockItem(FENCE_ATTACHED_SOURCE_BLOCK.get(), new Item.Properties()));
+            new BlockItem(FENCE_ATTACHED_SOURCE_BLOCK.get(), itemProps(FENCE_ATTACHED_SOURCE_BLOCK_NAME)));
 
     public static final Supplier<BlockItem> BRIDGE_SOURCE_BLOCK_ITEM = Suppliers.memoize(() ->
-            new BlockItem(BRIDGE_SOURCE_BLOCK.get(), new Item.Properties()));
+            new BlockItem(BRIDGE_SOURCE_BLOCK.get(), itemProps(BRIDGE_SOURCE_BLOCK_NAME)));
 
     public static final Supplier<BlockItem> FENCE_SOURCE_BLOCK_ITEM = Suppliers.memoize(() ->
-            new BlockItem(FENCE_SOURCE_BLOCK.get(), new Item.Properties()));
+            new BlockItem(FENCE_SOURCE_BLOCK.get(), itemProps(FENCE_SOURCE_BLOCK_NAME)));
 
     // Sound Events
     public static final Supplier<SoundEvent> SOUND_ON = Suppliers.memoize(() ->
@@ -80,5 +82,16 @@ public class ModRegistry {
         // Sound Events
         SOUND_EVENTS_REG.put(ON_NAME, SOUND_ON);
         SOUND_EVENTS_REG.put(OFF_NAME, SOUND_OFF);
+    }
+
+    // Helper methods
+    private static BlockBehaviour.Properties blockProps(String name) {
+        ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(MOD_ID, name));
+        return BlockBehaviour.Properties.of().setId(key);
+    }
+
+    private static Item.Properties itemProps(String name) {
+        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, name));
+        return new Item.Properties().setId(key);
     }
 }
