@@ -38,7 +38,7 @@ public class LaserBridges {
         eventBus.addListener(this::addCreative);
     }
 
-    @EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)
     public static class ClientModEvents {
 
         @SubscribeEvent

@@ -2,18 +2,16 @@ package com.mars.laserbridges;
 
 import com.mars.laserbridges.blocks.ISourceBlock;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -33,7 +31,7 @@ public class LaserBridges {
     public LaserBridges(FMLJavaModLoadingContext context) {
         CommonClass.init();
 
-        IEventBus modEventBus = context.getModEventBus();
+        var modEventBus = context.getModBusGroup();
 
         BLOCKS_REG.forEach(BLOCKS::register);
         BLOCK_ITEMS_REG.forEach(ITEMS::register);
@@ -43,20 +41,24 @@ public class LaserBridges {
         ITEMS.register(modEventBus);
         SOUND_EVENTS.register(modEventBus);
 
-        modEventBus.addListener(this::addCreative);
+        RegisterColorHandlersEvent.Block.getBus(modEventBus).addListener(LaserBridges::registerBlockColorHandlers);
+        FMLClientSetupEvent.getBus(modEventBus).addListener(LaserBridges::clientSetup);
+        BuildCreativeModeTabContentsEvent.getBus(modEventBus).addListener(LaserBridges::addCreative);
     }
 
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-
-        @SubscribeEvent
-        public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
-            BLOCKS_REG.forEach((s, blockSupplier) -> event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(ISourceBlock.COLOR))).getTextureDiffuseColor(), blockSupplier.get()));
-        }
+    @SubscribeEvent
+    public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
+        BLOCKS_REG.forEach((s, blockSupplier) -> event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(ISourceBlock.COLOR))).getTextureDiffuseColor(), blockSupplier.get()));
     }
 
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS){
+    @SubscribeEvent
+    private static void clientSetup(FMLClientSetupEvent event) {
+        BLOCKS_REG.forEach((s, blockSupplier) -> ItemBlockRenderTypes.setRenderLayer(blockSupplier.get(), ChunkSectionLayer.TRANSLUCENT));
+    }
+
+    @SubscribeEvent
+    private static void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
             event.accept(BRIDGE_ATTACHED_SOURCE_BLOCK_ITEM.get());
             event.accept(FENCE_ATTACHED_SOURCE_BLOCK_ITEM.get());
             event.accept(BRIDGE_SOURCE_BLOCK.get());
