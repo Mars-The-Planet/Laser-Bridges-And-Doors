@@ -38,7 +38,6 @@ public class CommonClass {
         // Dispensers dying laser sources
         DefaultDispenseItemBehavior dyeBehavior = new OptionalDispenseItemBehavior() {
             protected ItemStack execute(BlockSource blockSource, ItemStack stack) {
-                //System.out.println("EXECUTE DYE");
                 ServerLevel serverLevel = blockSource.level();
                 Direction direction = (Direction)blockSource.state().getValue(DispenserBlock.FACING);
                 BlockPos blockPos = blockSource.pos().relative(direction);
@@ -46,7 +45,6 @@ public class CommonClass {
                 Block block = blockState.getBlock();
                 String blockDesc = block.getDescriptionId();
                 if (blockDesc.equals("block."+MOD_ID+"."+BRIDGE_SOURCE_BLOCK_NAME) || blockDesc.equals("block."+MOD_ID+"."+FENCE_SOURCE_BLOCK_NAME)) {
-                    //System.out.println("IN");
                     int col = stack.get(DataComponents.DYE).getId();
                     BlockState newBlockState = blockState.setValue(BridgeSourceBlock.COLOR, col);
                     serverLevel.setBlock(blockPos, newBlockState, 3);
@@ -61,32 +59,28 @@ public class CommonClass {
                     else {
                         ((FenceSourceBlock)block).generateBridge(serverLevel, redstonePower, blockPos, newBlockState);
                     }
-                    //System.out.println("COLOUR: " + col);
                     return stack;
-                }
-                else{
-                    //System.out.println("WTF: " + block + ", " + block.defaultBlockState() + ", " + block.getDescriptionId());
                 }
                 return super.execute(blockSource, stack);
             }
         };
 
-        DispenserBlock.registerBehavior(Items.WHITE_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.ORANGE_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.MAGENTA_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.LIGHT_BLUE_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.YELLOW_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.LIME_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.PINK_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.GRAY_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.LIGHT_GRAY_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.CYAN_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.PURPLE_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.BLUE_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.BROWN_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.GREEN_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.RED_DYE, dyeBehavior);
-        DispenserBlock.registerBehavior(Items.BLACK_DYE, dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.white(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.orange(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.magenta(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.lightBlue(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.yellow(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.lime(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.pink(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.gray(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.lightGray(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.cyan(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.purple(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.blue(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.brown(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.green(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.red(), dyeBehavior);
+        DispenserBlock.registerBehavior(Items.DYE.black(), dyeBehavior);
 
         // Recipe generation
         String attachedBridgeID = Identifier.fromNamespaceAndPath(MOD_ID, BRIDGE_ATTACHED_SOURCE_BLOCK_NAME).toString();
