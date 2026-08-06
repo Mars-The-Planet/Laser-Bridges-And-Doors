@@ -65,7 +65,7 @@ public interface ISourceBlock {
             String nextBlockName = (BuiltInRegistries.BLOCK.getKey(nextState.getBlock())).toString();
             boolean isDestroyable = LaserBridgesConfig.blocks_cut_through_by_lasers.contains(nextBlockName);
 
-            if (!(nextState.equals(bs) || isDestroyable))
+            if (!(nextState.equals(bs) || isDestroyable || isSameExceptCol(bs, nextState)))
                 return;
             if (isDestroyable && power != 0)
                 world.destroyBlock(nextPos, true);
@@ -77,6 +77,13 @@ public interface ISourceBlock {
                     world.setBlock(nextPos, Blocks.AIR.defaultBlockState(), 3);
             }
         }
+    }
+
+    default boolean isSameExceptCol(BlockState oldBs, BlockState newBs) {
+        if (!oldBs.getBlock().equals(newBs.getBlock()))             return false;
+        if (!oldBs.getValue(FACING).equals(newBs.getValue(FACING))) return false;
+        if (!oldBs.getValue(FACE).equals(newBs.getValue(FACE)))     return false;
+        return true;
     }
 
     default VoxelShape handleGetShape(BlockState state) {
@@ -116,7 +123,10 @@ public interface ISourceBlock {
             int col = ((DyeItem) item).getDyeColor().getId();
             stack.consume(1, player);
             player.awardStat(Stats.ITEM_USED.get(item));
-            lvl.setBlock(pos, state.setValue(COLOR, col), 3);
+            BlockState newBS = state.setValue(COLOR, col);
+            lvl.setBlock(pos, newBS, 3);
+            int redstonePower = lvl.getBestNeighborSignal(pos);
+            generateBridge(lvl, redstonePower, pos, newBS);
             return InteractionResult.SUCCESS;
         }
 
