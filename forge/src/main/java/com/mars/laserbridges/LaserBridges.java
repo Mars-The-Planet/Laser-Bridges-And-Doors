@@ -1,25 +1,28 @@
 package com.mars.laserbridges;
 
-import com.mars.laserbridges.blocks.ISourceBlock;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.color.block.BlockTintSource;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.List;
+
 import static com.mars.laserbridges.Constants.MOD_ID;
 import static com.mars.laserbridges.ModRegistry.*;
+import static com.mars.laserbridges.blocks.BridgeSourceBlock.COLOR;
 
 @Mod(Constants.MOD_ID)
 public class LaserBridges {
@@ -41,19 +44,23 @@ public class LaserBridges {
         ITEMS.register(modEventBus);
         SOUND_EVENTS.register(modEventBus);
 
-        RegisterColorHandlersEvent.Block.getBus(modEventBus).addListener(LaserBridges::registerBlockColorHandlers);
-        FMLClientSetupEvent.getBus(modEventBus).addListener(LaserBridges::clientSetup);
-        BuildCreativeModeTabContentsEvent.getBus(modEventBus).addListener(LaserBridges::addCreative);
+        RegisterColorHandlersEvent.Block.BUS.addListener(LaserBridges::registerBlockColorHandlers);
+        BuildCreativeModeTabContentsEvent.BUS.addListener(LaserBridges::addCreative);
     }
 
     @SubscribeEvent
     public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
-        BLOCKS_REG.forEach((s, blockSupplier) -> event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(ISourceBlock.COLOR))).getTextureDiffuseColor(), blockSupplier.get()));
-    }
+        BLOCKS_REG.forEach((s, blockSupplier) -> event.register(List.of(new BlockTintSource() {
+            @Override
+            public int color(BlockState state) {
+                return DyeColor.byId(state.getValue(COLOR)).getTextureDiffuseColor();
+            }
 
-    @SubscribeEvent
-    private static void clientSetup(FMLClientSetupEvent event) {
-        BLOCKS_REG.forEach((s, blockSupplier) -> ItemBlockRenderTypes.setRenderLayer(blockSupplier.get(), ChunkSectionLayer.TRANSLUCENT));
+            @Override
+            public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                return DyeColor.byId(state.getValue(COLOR)).getTextureDiffuseColor();
+            }
+        }), blockSupplier.get()));
     }
 
     @SubscribeEvent
