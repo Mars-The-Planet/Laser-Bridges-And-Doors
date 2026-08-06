@@ -1,10 +1,14 @@
 package com.mars.laserbridges;
 
 import com.mars.laserbridges.blocks.ISourceBlock;
+import net.minecraft.client.color.block.BlockTintSource;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -13,6 +17,8 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.List;
 
 import static com.mars.laserbridges.Constants.*;
 import static com.mars.laserbridges.ModRegistry.*;
@@ -42,8 +48,22 @@ public class LaserBridges {
     public static class ClientModEvents {
 
         @SubscribeEvent
-        public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
-            BLOCKS_REG.forEach((s, blockSupplier) -> event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(ISourceBlock.COLOR))).getTextureDiffuseColor(), blockSupplier.get()));
+        public static void registerBlockColours(RegisterColorHandlersEvent.BlockTintSources event) {
+            List<BlockTintSource> tintSources = List.of(new BlockTintSource() {
+                @Override
+                public int color(BlockState state) {
+                    return DyeColor.byId(state.getValue(ISourceBlock.COLOR)).getTextureDiffuseColor();
+                }
+
+                @Override
+                public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                    return DyeColor.byId(state.getValue(ISourceBlock.COLOR)).getTextureDiffuseColor();
+                }
+            });
+
+            BLOCKS_REG.forEach((s, blockSupplier) -> {
+                event.register(tintSources, blockSupplier.get());
+            });
         }
     }
 
