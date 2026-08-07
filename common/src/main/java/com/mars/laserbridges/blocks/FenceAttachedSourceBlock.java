@@ -31,8 +31,6 @@ public class FenceAttachedSourceBlock extends AbstractAttachedSourceBlock{
     protected static final VoxelShape WEST_POWERED_SHAPE = Shapes.or(WEST_SHAPE, Block.box(0, 0, 7.99999, 16, 16, 8));
     protected static final VoxelShape EAST_POWERED_SHAPE = Shapes.or(EAST_SHAPE, Block.box(0, 0, 7.99999, 16, 16, 8));
 
-    public static final MapCodec<FenceAttachedSourceBlock> CODEC = simpleCodec(FenceAttachedSourceBlock::new);
-
     public FenceAttachedSourceBlock(Properties properties) {
         super(properties);
     }
@@ -120,10 +118,5 @@ public class FenceAttachedSourceBlock extends AbstractAttachedSourceBlock{
     @Override
     public VoxelShape getPoweredEastShape() {
         return EAST_POWERED_SHAPE;
-    }
-
-    @Override
-    protected MapCodec<? extends FaceAttachedHorizontalDirectionalBlock> codec() {
-        return CODEC;
     }
 }

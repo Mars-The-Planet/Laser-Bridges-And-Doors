@@ -15,8 +15,6 @@ public class LaserBridgeBlock extends AbstractLaserBlock {
     public static final VoxelShape WEST_SHAPE = Constants.WEST_SHAPE;
     public static final VoxelShape EAST_SHAPE = Constants.EAST_SHAPE;
 
-    public static final MapCodec<LaserBridgeBlock> CODEC = simpleCodec(LaserBridgeBlock::new);
-
     public LaserBridgeBlock(Properties properties) {
         super(properties);
     }
@@ -29,9 +27,4 @@ public class LaserBridgeBlock extends AbstractLaserBlock {
     @Override protected VoxelShape getSouthShape() { return SOUTH_SHAPE; }
     @Override protected VoxelShape getWestShape() { return WEST_SHAPE; }
     @Override protected VoxelShape getEastShape() { return EAST_SHAPE; }
-
-    @Override
-    protected MapCodec<? extends AbstractLaserBlock> codec() {
-        return CODEC;
-    }
 }
