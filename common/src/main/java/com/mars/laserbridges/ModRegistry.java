@@ -56,10 +56,10 @@ public class ModRegistry {
 
     // Sound Events
     public static final Supplier<SoundEvent> SOUND_ON = Suppliers.memoize(() ->
-            SoundEvent.createFixedRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, ON_NAME), 75f));
+            SoundEvent.createFixedRangeEvent(new ResourceLocation(MOD_ID, ON_NAME), 75f));
 
     public static final Supplier<SoundEvent> SOUND_OFF = Suppliers.memoize(() ->
-            SoundEvent.createFixedRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, OFF_NAME), 75f));
+            SoundEvent.createFixedRangeEvent(new ResourceLocation(MOD_ID, OFF_NAME), 75f));
 
     public static void RegisterSetup() {
         // Blocks

@@ -71,10 +71,10 @@ public class CommonClass {
         DispenserBlock.registerBehavior(Items.BLACK_DYE, dyeBehavior);
 
         // Recipe generation
-        String attachedBridgeID = ResourceLocation.fromNamespaceAndPath(MOD_ID, BRIDGE_ATTACHED_SOURCE_BLOCK_NAME).toString();
-        String attachedFenceID = ResourceLocation.fromNamespaceAndPath(MOD_ID, FENCE_ATTACHED_SOURCE_BLOCK_NAME).toString();
-        String bridgeID = ResourceLocation.fromNamespaceAndPath(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME).toString();
-        String fenceID = ResourceLocation.fromNamespaceAndPath(MOD_ID, FENCE_SOURCE_BLOCK_NAME).toString();
+        String attachedBridgeID = new ResourceLocation(MOD_ID, BRIDGE_ATTACHED_SOURCE_BLOCK_NAME).toString();
+        String attachedFenceID = new ResourceLocation(MOD_ID, FENCE_ATTACHED_SOURCE_BLOCK_NAME).toString();
+        String bridgeID = new ResourceLocation(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME).toString();
+        String fenceID = new ResourceLocation(MOD_ID, FENCE_SOURCE_BLOCK_NAME).toString();
 
         DeimosRecipeGenerator.createShapedRecipeJson(
                 Lists.newArrayList("minecraft:iron_ingot", "minecraft:glass", "minecraft:end_crystal"),

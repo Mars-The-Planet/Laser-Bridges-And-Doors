@@ -1,6 +1,5 @@
 package com.mars.laserbridges;
 
-import com.mars.laserbridges.blocks.ISourceBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -16,6 +15,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import static com.mars.laserbridges.Constants.*;
 import static com.mars.laserbridges.ModRegistry.*;
+import static com.mars.laserbridges.blocks.ISourceBlock.COLOR;
 
 @Mod(Constants.MOD_ID)
 public class LaserBridges {
@@ -43,7 +43,7 @@ public class LaserBridges {
 
         @SubscribeEvent
         public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
-            BLOCKS_REG.forEach((s, blockSupplier) -> event.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(ISourceBlock.COLOR))).getTextureDiffuseColor(), blockSupplier.get()));
+            BLOCKS_REG.forEach((s, blockSupplier) -> event.register((state, level, pos, tintIndex) -> (((int)(DyeColor.byId(state.getValue(COLOR)).getTextureDiffuseColors()[0] * 255)) << 16) | (((int)(DyeColor.byId(state.getValue(COLOR)).getTextureDiffuseColors()[1] * 255)) << 8) | (int) ((DyeColor.byId(state.getValue(COLOR)).getTextureDiffuseColors()[2] * 255)), blockSupplier.get()));
         }
     }
 

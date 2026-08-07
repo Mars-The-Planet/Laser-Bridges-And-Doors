@@ -23,9 +23,9 @@ public class LaserBridges implements ModInitializer, ClientModInitializer {
 
         CommonClass.init();
 
-        BLOCKS_REG.forEach((s, blockSupplier) -> Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath(MOD_ID, s), blockSupplier.get()));
-        BLOCK_ITEMS_REG.forEach((s, blockItemSupplier) -> Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, s), blockItemSupplier.get()));
-        SOUND_EVENTS_REG.forEach((s, soundEventSupplier) -> Registry.register(BuiltInRegistries.SOUND_EVENT, ResourceLocation.fromNamespaceAndPath(MOD_ID, s), soundEventSupplier.get()));
+        BLOCKS_REG.forEach((s, blockSupplier) -> Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(MOD_ID, s), blockSupplier.get()));
+        BLOCK_ITEMS_REG.forEach((s, blockItemSupplier) -> Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(MOD_ID, s), blockItemSupplier.get()));
+        SOUND_EVENTS_REG.forEach((s, soundEventSupplier) -> Registry.register(BuiltInRegistries.SOUND_EVENT, new ResourceLocation(MOD_ID, s), soundEventSupplier.get()));
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(BRIDGE_ATTACHED_SOURCE_BLOCK.get()));
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(FENCE_ATTACHED_SOURCE_BLOCK.get()));
@@ -37,7 +37,7 @@ public class LaserBridges implements ModInitializer, ClientModInitializer {
     public void onInitializeClient() {
         BLOCKS_REG.forEach((s, blockSupplier) -> {
             BlockRenderLayerMap.INSTANCE.putBlock(blockSupplier.get(), RenderType.translucent());
-            ColorProviderRegistry.BLOCK.register((state, level, pos, tintIndex) -> (DyeColor.byId(state.getValue(COLOR))).getTextureDiffuseColor(), blockSupplier.get());
+            ColorProviderRegistry.BLOCK.register((state, level, pos, tintIndex) -> (((int)(DyeColor.byId(state.getValue(COLOR)).getTextureDiffuseColors()[0] * 255)) << 16) | (((int)(DyeColor.byId(state.getValue(COLOR)).getTextureDiffuseColors()[1] * 255)) << 8) | (int) ((DyeColor.byId(state.getValue(COLOR)).getTextureDiffuseColors()[2] * 255)), blockSupplier.get());
         });
 
     }
