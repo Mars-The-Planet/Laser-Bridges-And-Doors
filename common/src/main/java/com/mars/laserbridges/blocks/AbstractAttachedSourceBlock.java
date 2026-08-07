@@ -2,7 +2,6 @@ package com.mars.laserbridges.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -15,6 +14,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import java.util.Random;
 
 public abstract class AbstractAttachedSourceBlock extends FaceAttachedHorizontalDirectionalBlock implements ISourceBlock {
 
@@ -46,7 +47,7 @@ public abstract class AbstractAttachedSourceBlock extends FaceAttachedHorizontal
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel lvl, BlockPos pos, RandomSource random) {
+    public void tick(BlockState state, ServerLevel lvl, BlockPos pos, Random random) {
         handleTick(state, lvl, pos);
     }
 
