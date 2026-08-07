@@ -43,22 +43,13 @@ public class CommonClass {
                 BlockPos blockPos = blockSource.pos().relative(direction);
                 BlockState blockState = serverLevel.getBlockState(blockPos);
                 Block block = blockState.getBlock();
-                String blockDesc = block.getDescriptionId();
-                if (blockDesc.equals("block."+MOD_ID+"."+BRIDGE_SOURCE_BLOCK_NAME) || blockDesc.equals("block."+MOD_ID+"."+FENCE_SOURCE_BLOCK_NAME)) {
+                if (block instanceof ISourceBlock) {
+                    Item item = stack.getItem();
                     int col = stack.get(DataComponents.DYE).getId();
-                    BlockState newBlockState = blockState.setValue(BridgeSourceBlock.COLOR, col);
-                    serverLevel.setBlock(blockPos, newBlockState, 3);
+                    serverLevel.setBlock(blockPos, blockState.setValue(COLOR, col), 2);
                     stack.shrink(1);
                     serverLevel.gameEvent((Entity)null, GameEvent.BLOCK_CHANGE, blockPos);
                     this.setSuccess(true);
-
-                    int redstonePower = serverLevel.getBestNeighborSignal(blockPos);
-                    if (blockDesc.equals("block."+MOD_ID+"."+BRIDGE_SOURCE_BLOCK_NAME)) {
-                        ((BridgeSourceBlock)block).generateBridge(serverLevel, redstonePower, blockPos, newBlockState);
-                    }
-                    else {
-                        ((FenceSourceBlock)block).generateBridge(serverLevel, redstonePower, blockPos, newBlockState);
-                    }
                     return stack;
                 }
                 return super.execute(blockSource, stack);
