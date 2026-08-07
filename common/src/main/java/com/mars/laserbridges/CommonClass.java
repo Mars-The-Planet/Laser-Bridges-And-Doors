@@ -5,8 +5,8 @@ import com.mars.deimos.config.DeimosConfig;
 import com.mars.deimos.datagen.DeimosRecipeGenerator;
 import com.mars.laserbridges.blocks.ISourceBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
-import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
@@ -39,9 +39,9 @@ public class CommonClass {
         // Dispensers dying laser sources
         DefaultDispenseItemBehavior dyeBehavior = new OptionalDispenseItemBehavior() {
             protected ItemStack execute(BlockSource blockSource, ItemStack stack) {
-                ServerLevel serverLevel = blockSource.level();
-                Direction direction = (Direction)blockSource.state().getValue(DispenserBlock.FACING);
-                BlockPos blockPos = blockSource.pos().relative(direction);
+                ServerLevel serverLevel = blockSource.getLevel();
+                Direction direction = (Direction)blockSource.getBlockState().getValue(DispenserBlock.FACING);
+                BlockPos blockPos = blockSource.getPos().relative(direction);
                 BlockState blockState = serverLevel.getBlockState(blockPos);
                 Block block = blockState.getBlock();
                 if (block instanceof ISourceBlock) {
