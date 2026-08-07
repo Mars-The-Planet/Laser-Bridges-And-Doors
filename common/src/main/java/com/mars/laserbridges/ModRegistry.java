@@ -6,6 +6,7 @@ import com.mars.laserbridges.blocks.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -42,23 +43,21 @@ public class ModRegistry {
 
     // Items
     public static final Supplier<BlockItem> BRIDGE_ATTACHED_SOURCE_BLOCK_ITEM = Suppliers.memoize(() ->
-            new BlockItem(BRIDGE_ATTACHED_SOURCE_BLOCK.get(), new Item.Properties()));
+            new BlockItem(BRIDGE_ATTACHED_SOURCE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
     public static final Supplier<BlockItem> FENCE_ATTACHED_SOURCE_BLOCK_ITEM = Suppliers.memoize(() ->
-            new BlockItem(FENCE_ATTACHED_SOURCE_BLOCK.get(), new Item.Properties()));
+            new BlockItem(FENCE_ATTACHED_SOURCE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
     public static final Supplier<BlockItem> BRIDGE_SOURCE_BLOCK_ITEM = Suppliers.memoize(() ->
-            new BlockItem(BRIDGE_SOURCE_BLOCK.get(), new Item.Properties()));
+            new BlockItem(BRIDGE_SOURCE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
     public static final Supplier<BlockItem> FENCE_SOURCE_BLOCK_ITEM = Suppliers.memoize(() ->
-            new BlockItem(FENCE_SOURCE_BLOCK.get(), new Item.Properties()));
+            new BlockItem(FENCE_SOURCE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
     // Sound Events
-    public static final Supplier<SoundEvent> SOUND_ON = Suppliers.memoize(() ->
-            SoundEvent.createFixedRangeEvent(new ResourceLocation(MOD_ID, ON_NAME), 75f));
+    public static final Supplier<SoundEvent> SOUND_ON = Suppliers.memoize(() -> new SoundEvent(new ResourceLocation(MOD_ID, ON_NAME)));
 
-    public static final Supplier<SoundEvent> SOUND_OFF = Suppliers.memoize(() ->
-            SoundEvent.createFixedRangeEvent(new ResourceLocation(MOD_ID, OFF_NAME), 75f));
+    public static final Supplier<SoundEvent> SOUND_OFF = Suppliers.memoize(() -> new SoundEvent(new ResourceLocation(MOD_ID, OFF_NAME)));
 
     public static void RegisterSetup() {
         // Blocks

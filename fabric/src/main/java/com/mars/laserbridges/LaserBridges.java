@@ -4,12 +4,9 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DyeColor;
 
 import static com.mars.laserbridges.Constants.MOD_ID;
@@ -23,14 +20,9 @@ public class LaserBridges implements ModInitializer, ClientModInitializer {
 
         CommonClass.init();
 
-        BLOCKS_REG.forEach((s, blockSupplier) -> Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(MOD_ID, s), blockSupplier.get()));
-        BLOCK_ITEMS_REG.forEach((s, blockItemSupplier) -> Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(MOD_ID, s), blockItemSupplier.get()));
-        SOUND_EVENTS_REG.forEach((s, soundEventSupplier) -> Registry.register(BuiltInRegistries.SOUND_EVENT, new ResourceLocation(MOD_ID, s), soundEventSupplier.get()));
-
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(BRIDGE_ATTACHED_SOURCE_BLOCK.get()));
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(FENCE_ATTACHED_SOURCE_BLOCK.get()));
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(BRIDGE_SOURCE_BLOCK.get()));
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> entries.accept(FENCE_SOURCE_BLOCK.get()));
+        BLOCKS_REG.forEach((s, blockSupplier) -> Registry.register(Registry.BLOCK, new ResourceLocation(MOD_ID, s), blockSupplier.get()));
+        BLOCK_ITEMS_REG.forEach((s, blockItemSupplier) -> Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, s), blockItemSupplier.get()));
+        SOUND_EVENTS_REG.forEach((s, soundEventSupplier) -> Registry.register(Registry.SOUND_EVENT, new ResourceLocation(MOD_ID, s), soundEventSupplier.get()));
     }
 
     @Override

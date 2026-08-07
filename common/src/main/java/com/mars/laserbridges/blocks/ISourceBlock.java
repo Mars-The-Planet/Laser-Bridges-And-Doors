@@ -3,7 +3,7 @@ package com.mars.laserbridges.blocks;
 import com.mars.laserbridges.LaserBridgesConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -62,7 +62,7 @@ public interface ISourceBlock {
 
             BlockPos nextPos = pos.offset(addPos);
             BlockState nextState = world.getBlockState(nextPos);
-            String nextBlockName = (BuiltInRegistries.BLOCK.getKey(nextState.getBlock())).toString();
+            String nextBlockName = (Registry.BLOCK.getKey(nextState.getBlock())).toString();
             boolean isDestroyable = LaserBridgesConfig.blocks_cut_through_by_lasers.contains(nextBlockName);
 
             if (!(nextState.equals(bs) || isDestroyable))
