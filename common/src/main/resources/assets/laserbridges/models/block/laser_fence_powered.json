@@ -1,0 +1,18 @@
+{
+  "credit": "Made with Blockbench",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "1": "laserbridges:block/laser_block_powered",
+    "particle": "laserbridges:block/laser_block_powered"
+  },
+  "elements": [
+    {
+      "from": [8, 0, 0],
+      "to": [8, 16, 16],
+      "faces": {
+        "east": {"uv": [0, 0, 16, 16], "texture": "#1", "rotation": 180, "tintindex": 0},
+        "west": {"uv": [0, 0, 16, 16], "texture": "#1", "rotation": 180, "tintindex": 0}
+      }
+    }
+  ]
+}

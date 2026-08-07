@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "laserbridges:laser_source_block",
+    "laserbridges:laser_fence_source_block",
+    "laserbridges:laser_source_fullblock",
+    "laserbridges:laser_fence_source_fullblock"
+  ]
+}
+
