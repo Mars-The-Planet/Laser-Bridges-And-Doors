@@ -38,34 +38,19 @@ public class CommonClass {
         // Dispensers dying laser sources
         DefaultDispenseItemBehavior dyeBehavior = new OptionalDispenseItemBehavior() {
             protected ItemStack execute(BlockSource blockSource, ItemStack stack) {
-                //System.out.println("EXECUTE DYE");
                 ServerLevel serverLevel = blockSource.level();
                 Direction direction = (Direction)blockSource.state().getValue(DispenserBlock.FACING);
                 BlockPos blockPos = blockSource.pos().relative(direction);
                 BlockState blockState = serverLevel.getBlockState(blockPos);
                 Block block = blockState.getBlock();
-                String blockDesc = block.getDescriptionId();
-                if (blockDesc.equals("block."+MOD_ID+"."+BRIDGE_SOURCE_BLOCK_NAME) || blockDesc.equals("block."+MOD_ID+"."+FENCE_SOURCE_BLOCK_NAME)) {
-                    //System.out.println("IN");
+                if (block instanceof ISourceBlock) {
+                    Item item = stack.getItem();
                     int col = stack.get(DataComponents.DYE).getId();
-                    BlockState newBlockState = blockState.setValue(BridgeSourceBlock.COLOR, col);
-                    serverLevel.setBlock(blockPos, newBlockState, 3);
+                    serverLevel.setBlock(blockPos, blockState.setValue(COLOR, col), 2);
                     stack.shrink(1);
                     serverLevel.gameEvent((Entity)null, GameEvent.BLOCK_CHANGE, blockPos);
                     this.setSuccess(true);
-
-                    int redstonePower = serverLevel.getBestNeighborSignal(blockPos);
-                    if (blockDesc.equals("block."+MOD_ID+"."+BRIDGE_SOURCE_BLOCK_NAME)) {
-                        ((BridgeSourceBlock)block).generateBridge(serverLevel, redstonePower, blockPos, newBlockState);
-                    }
-                    else {
-                        ((FenceSourceBlock)block).generateBridge(serverLevel, redstonePower, blockPos, newBlockState);
-                    }
-                    //System.out.println("COLOUR: " + col);
                     return stack;
-                }
-                else{
-                    //System.out.println("WTF: " + block + ", " + block.defaultBlockState() + ", " + block.getDescriptionId());
                 }
                 return super.execute(blockSource, stack);
             }
