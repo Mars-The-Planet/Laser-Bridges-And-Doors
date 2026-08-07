@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Material;
 
 import java.util.HashMap;
 
@@ -22,22 +23,22 @@ public class ModRegistry {
 
     // BLocks
     public static final Supplier<Block> BRIDGE_ATTACHED_SOURCE_BLOCK = Suppliers.memoize(() ->
-            new BridgeAttachedSourceBlock(BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
+            new BridgeAttachedSourceBlock(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
 
     public static final Supplier<Block> FENCE_ATTACHED_SOURCE_BLOCK = Suppliers.memoize(() ->
-            new FenceAttachedSourceBlock(BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
+            new FenceAttachedSourceBlock(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
 
     public static final Supplier<Block> BRIDGE_SOURCE_BLOCK = Suppliers.memoize(() ->
-            new BridgeSourceBlock(BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> LIGHT)));
+            new BridgeSourceBlock(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f).noOcclusion().lightLevel((state) -> LIGHT)));
 
     public static final Supplier<Block> FENCE_SOURCE_BLOCK = Suppliers.memoize(() ->
-            new FenceSourceBlock(BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> LIGHT)));
+            new FenceSourceBlock(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f).noOcclusion().lightLevel((state) -> LIGHT)));
 
     public static final Supplier<Block> LASER_BRIDGE_BLOCK = Suppliers.memoize(() ->
-            new LaserBridgeBlock(BlockBehaviour.Properties.of().strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((state) -> LIGHT)));
+            new LaserBridgeBlock(BlockBehaviour.Properties.of(Material.METAL).strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((state) -> LIGHT)));
 
     public static final Supplier<Block> LASER_FENCE_BLOCK = Suppliers.memoize(() ->
-            new LaserFenceBlock(BlockBehaviour.Properties.of().strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((state) -> LIGHT)));
+            new LaserFenceBlock(BlockBehaviour.Properties.of(Material.METAL).strength(-1.0F, 3600000.0F).noOcclusion().lightLevel((state) -> LIGHT)));
 
     // Items
     public static final Supplier<BlockItem> BRIDGE_ATTACHED_SOURCE_BLOCK_ITEM = Suppliers.memoize(() ->
