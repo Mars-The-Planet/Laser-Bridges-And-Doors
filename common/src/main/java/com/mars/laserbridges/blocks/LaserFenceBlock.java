@@ -17,7 +17,7 @@ public class LaserFenceBlock extends AbstractLaserBlock{
     public static final VoxelShape WEST_SHAPE = Block.box(0, 0, 7.99999, 16, 16, 8);
     public static final VoxelShape EAST_SHAPE = Block.box(0, 0, 7.99999, 16, 16, 8);
 
-    public static final MapCodec<LaserFenceBlock> CODEC = simpleCodec(LaserFenceBlock::new);
+//    public static final MapCodec<LaserFenceBlock> CODEC = simpleCodec(LaserFenceBlock::new);
 
     public LaserFenceBlock(Properties properties) {
         super(properties);
@@ -32,8 +32,8 @@ public class LaserFenceBlock extends AbstractLaserBlock{
     @Override protected VoxelShape getWestShape() { return WEST_SHAPE; }
     @Override protected VoxelShape getEastShape() { return EAST_SHAPE; }
 
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
+//    @Override
+//    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+//        return CODEC;
+//    }
 }

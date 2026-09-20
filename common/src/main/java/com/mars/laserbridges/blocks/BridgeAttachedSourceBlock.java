@@ -31,7 +31,7 @@ public class BridgeAttachedSourceBlock extends AbstractAttachedSourceBlock{
     protected static final VoxelShape WEST_POWERED_SHAPE = Shapes.or(WEST_SHAPE, Constants.WEST_SHAPE);
     protected static final VoxelShape EAST_POWERED_SHAPE = Shapes.or(EAST_SHAPE, Constants.EAST_SHAPE);
 
-    public static final MapCodec<BridgeAttachedSourceBlock> CODEC = simpleCodec(BridgeAttachedSourceBlock::new);
+    //public static final MapCodec<BridgeAttachedSourceBlock> CODEC = simpleCodec(BridgeAttachedSourceBlock::new);
 
     public BridgeAttachedSourceBlock(Properties properties) {
         super(properties);
@@ -122,8 +122,8 @@ public class BridgeAttachedSourceBlock extends AbstractAttachedSourceBlock{
         return EAST_POWERED_SHAPE;
     }
 
-    @Override
-    protected MapCodec<? extends FaceAttachedHorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
+//    @Override
+//    protected MapCodec<? extends FaceAttachedHorizontalDirectionalBlock> codec() {
+//        return CODEC;
+//    }
 }
