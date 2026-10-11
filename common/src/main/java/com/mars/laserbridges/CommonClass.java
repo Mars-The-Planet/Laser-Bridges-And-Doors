@@ -74,31 +74,34 @@ public class CommonClass {
         DispenserBlock.registerBehavior(Items.DYE.black(), dyeBehavior);
 
         // Recipe generation
-        String attachedBridgeID = Identifier.fromNamespaceAndPath(MOD_ID, BRIDGE_ATTACHED_SOURCE_BLOCK_NAME).toString();
-        String attachedFenceID = Identifier.fromNamespaceAndPath(MOD_ID, FENCE_ATTACHED_SOURCE_BLOCK_NAME).toString();
-        String bridgeID = Identifier.fromNamespaceAndPath(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME).toString();
-        String fenceID = Identifier.fromNamespaceAndPath(MOD_ID, FENCE_SOURCE_BLOCK_NAME).toString();
+        DeimosRecipeGenerator.registerProvider((existing, ops) -> {
+            String attachedBridgeID = Identifier.fromNamespaceAndPath(MOD_ID, BRIDGE_ATTACHED_SOURCE_BLOCK_NAME).toString();
+            String attachedFenceID = Identifier.fromNamespaceAndPath(MOD_ID, FENCE_ATTACHED_SOURCE_BLOCK_NAME).toString();
+            String bridgeID = Identifier.fromNamespaceAndPath(MOD_ID, BRIDGE_SOURCE_BLOCK_NAME).toString();
+            String fenceID = Identifier.fromNamespaceAndPath(MOD_ID, FENCE_SOURCE_BLOCK_NAME).toString();
 
-        DeimosRecipeGenerator.createShapedRecipeJson(
-                Lists.newArrayList("minecraft:iron_ingot", "minecraft:glass", "minecraft:end_crystal"),
-                Lists.newArrayList("IGI", "IEI", "III"), attachedBridgeID);
+            DeimosRecipeGenerator.createShapedRecipeJson(
+                    Lists.newArrayList("minecraft:iron_ingot", "minecraft:glass", "minecraft:end_crystal"),
+                    Lists.newArrayList("IGI", "IEI", "III"), attachedBridgeID);
 
-        DeimosRecipeGenerator.createShapedRecipeJson(
-                Lists.newArrayList("minecraft:iron_ingot", "minecraft:end_crystal", "minecraft:glass"),
-                Lists.newArrayList("III", "IEG", "III"), attachedFenceID);
+            DeimosRecipeGenerator.createShapedRecipeJson(
+                    Lists.newArrayList("minecraft:iron_ingot", "minecraft:end_crystal", "minecraft:glass"),
+                    Lists.newArrayList("III", "IEG", "III"), attachedFenceID);
 
-        DeimosRecipeGenerator.createItemConvertorJson(attachedBridgeID, attachedFenceID, 1);
-        DeimosRecipeGenerator.createItemConvertorJson(attachedFenceID, attachedBridgeID, 1);
+            DeimosRecipeGenerator.createItemConvertorJson(attachedBridgeID, attachedFenceID, 1);
+            DeimosRecipeGenerator.createItemConvertorJson(attachedFenceID, attachedBridgeID, 1);
 
-        DeimosRecipeGenerator.createShapedRecipeJson(
-                Lists.newArrayList(attachedBridgeID, "minecraft:iron_ingot"),
-                Lists.newArrayList(" B ", "III", "III"), bridgeID);
+            DeimosRecipeGenerator.createShapedRecipeJson(
+                    Lists.newArrayList(attachedBridgeID, "minecraft:iron_ingot"),
+                    Lists.newArrayList(" B ", "III", "III"), bridgeID);
 
-        DeimosRecipeGenerator.createShapedRecipeJson(
-                Lists.newArrayList("minecraft:iron_ingot", attachedFenceID),
-                Lists.newArrayList("II ", "IIF", "II "), fenceID);
+            DeimosRecipeGenerator.createShapedRecipeJson(
+                    Lists.newArrayList("minecraft:iron_ingot", attachedFenceID),
+                    Lists.newArrayList("II ", "IIF", "II "), fenceID);
 
-        DeimosRecipeGenerator.createItemConvertorJson(bridgeID, fenceID, 1);
-        DeimosRecipeGenerator.createItemConvertorJson(fenceID, bridgeID, 1);
+            DeimosRecipeGenerator.createItemConvertorJson(bridgeID, fenceID, 1);
+            DeimosRecipeGenerator.createItemConvertorJson(fenceID, bridgeID, 1);
+        });
+
     }
 }
