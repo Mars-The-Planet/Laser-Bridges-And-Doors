@@ -53,6 +53,7 @@ public class LaserBridges {
             event.accept(FENCE_ATTACHED_SOURCE_BLOCK_ITEM.get());
             event.accept(BRIDGE_SOURCE_BLOCK.get());
             event.accept(FENCE_SOURCE_BLOCK.get());
+            event.accept(BRIDGE_ATTACHED_RECEIVER_BLOCK.get());
         }
     }
 }
