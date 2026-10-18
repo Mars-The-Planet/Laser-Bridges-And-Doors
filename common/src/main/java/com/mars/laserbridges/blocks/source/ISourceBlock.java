@@ -1,6 +1,7 @@
 package com.mars.laserbridges.blocks.source;
 
 import com.mars.laserbridges.LaserBridgesConfig;
+import com.mars.laserbridges.blocks.ILaserGeneratingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,11 +25,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import static com.mars.laserbridges.ModRegistry.SOUND_OFF;
 import static com.mars.laserbridges.ModRegistry.SOUND_ON;
 
-public interface ISourceBlock {
-    DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
-    BooleanProperty POWERED = BlockStateProperties.POWERED;
-    IntegerProperty COLOR = IntegerProperty.create("color", 0, 15);
+public interface ISourceBlock extends ILaserGeneratingBlock {
 
     Block LaserBlockType();
 
@@ -77,37 +74,6 @@ public interface ISourceBlock {
                     world.setBlock(nextPos, Blocks.AIR.defaultBlockState(), 3);
             }
         }
-    }
-
-    default VoxelShape handleGetShape(BlockState state) {
-        Direction dir = state.getValue(ISourceBlock.FACING);
-        boolean powered = state.getValue(POWERED);
-        switch (state.getValue(ISourceBlock.FACE)) {
-            case FLOOR -> {
-                if (dir.getAxis() == Direction.Axis.X) {
-                    return powered ? getPoweredFloorXShape() : getFloorXShape();
-                }
-                return powered ? getPoweredFloorZShape() : getFloorZShape();
-            }
-            case WALL -> {
-                switch (dir) {
-                    case EAST -> {
-                        return powered ? getPoweredEastShape() : getEastShape();
-                    }
-                    case WEST -> {
-                        return powered ? getPoweredWestShape() : getWestShape();
-                    }
-                    case SOUTH -> {
-                        return powered ? getPoweredSouthShape() : getSouthShape();
-                    }
-                }
-                return powered ? getPoweredNorthShape() : getNorthShape();
-            }
-        }
-        if (dir.getAxis() == Direction.Axis.X) {
-            return powered ? getPoweredCeilingXShape() : getCeilingXShape();
-        }
-        return powered ? getPoweredCeilingZShape() : getCeilingZShape();
     }
 
     default ItemInteractionResult handleUseItemOn(ItemStack stack, BlockState state, Level lvl, BlockPos pos, Player player) {
@@ -184,22 +150,4 @@ public interface ISourceBlock {
             generateBridge(lvl, 0, pos, state);
         }
     }
-
-    VoxelShape getCeilingXShape();
-    VoxelShape getCeilingZShape();
-    VoxelShape getFloorXShape();
-    VoxelShape getFloorZShape();
-    VoxelShape getNorthShape();
-    VoxelShape getSouthShape();
-    VoxelShape getWestShape();
-    VoxelShape getEastShape();
-
-    VoxelShape getPoweredCeilingXShape();
-    VoxelShape getPoweredCeilingZShape();
-    VoxelShape getPoweredFloorXShape();
-    VoxelShape getPoweredFloorZShape();
-    VoxelShape getPoweredNorthShape();
-    VoxelShape getPoweredSouthShape();
-    VoxelShape getPoweredWestShape();
-    VoxelShape getPoweredEastShape();
 }

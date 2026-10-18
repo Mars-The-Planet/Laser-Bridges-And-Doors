@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import static com.mars.laserbridges.Constants.*;
-import static com.mars.laserbridges.blocks.source.ISourceBlock.COLOR;
+import static com.mars.laserbridges.blocks.ILaserGeneratingBlock.COLOR;
 
 public class CommonClass {
 

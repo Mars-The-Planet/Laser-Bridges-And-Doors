@@ -12,6 +12,8 @@ public class Constants {
     public static final String FENCE_SOURCE_BLOCK_NAME = "laser_fence_source_fullblock";
     public static final String LASER_BRIDGE_BLOCK_NAME = "laser_block_powered";
     public static final String LASER_FENCE_BLOCK_NAME = "laser_fence_powered";
+    public static final String BRIDGE_ATTACHED_RECEIVER_BLOCK_NAME = "laser_attached_receiver";
+    public static final String FENCE_ATTACHED_RECEIVER_BLOCK_NAME = "laser_attached_receiver_fence";
     public static final String ON_NAME = "on";
     public static final String OFF_NAME = "off";
     public static int LIGHT = 10;
