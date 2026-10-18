@@ -1,4 +1,4 @@
-package com.mars.laserbridges.blocks;
+package com.mars.laserbridges.blocks.source;
 
 import com.mars.laserbridges.Constants;
 import com.mojang.serialization.MapCodec;

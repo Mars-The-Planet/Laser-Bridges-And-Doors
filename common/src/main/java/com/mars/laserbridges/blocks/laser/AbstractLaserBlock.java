@@ -1,5 +1,6 @@
-package com.mars.laserbridges.blocks;
+package com.mars.laserbridges.blocks.laser;
 
+import com.mars.laserbridges.blocks.source.ISourceBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;

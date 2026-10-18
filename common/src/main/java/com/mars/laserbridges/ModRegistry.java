@@ -2,7 +2,12 @@ package com.mars.laserbridges;
 
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
-import com.mars.laserbridges.blocks.*;
+import com.mars.laserbridges.blocks.laser.LaserBridgeBlock;
+import com.mars.laserbridges.blocks.laser.LaserFenceBlock;
+import com.mars.laserbridges.blocks.source.BridgeAttachedSourceBlock;
+import com.mars.laserbridges.blocks.source.BridgeSourceBlock;
+import com.mars.laserbridges.blocks.source.FenceAttachedSourceBlock;
+import com.mars.laserbridges.blocks.source.FenceSourceBlock;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;

@@ -1,6 +1,6 @@
 package com.mars.laserbridges;
 
-import com.mars.laserbridges.blocks.ISourceBlock;
+import com.mars.laserbridges.blocks.source.ISourceBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTabs;

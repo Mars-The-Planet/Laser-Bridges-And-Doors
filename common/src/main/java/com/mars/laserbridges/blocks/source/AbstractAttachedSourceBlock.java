@@ -1,47 +1,27 @@
-package com.mars.laserbridges.blocks;
+package com.mars.laserbridges.blocks.source;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public abstract class AbstractSourceBlock extends HorizontalDirectionalBlock implements ISourceBlock{
+public abstract class AbstractAttachedSourceBlock extends FaceAttachedHorizontalDirectionalBlock implements ISourceBlock {
 
-    protected AbstractSourceBlock(Properties properties) {
+    protected AbstractAttachedSourceBlock(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState().setValue(POWERED, false).setValue(COLOR, 0));
-    }
-
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        for(Direction direction : context.getNearestLookingDirections()) {
-            BlockState blockstate;
-            if (direction.getAxis() == Direction.Axis.Y) {
-                blockstate = this.defaultBlockState().setValue(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(ISourceBlock.FACING, context.getHorizontalDirection());
-            } else {
-                blockstate = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(ISourceBlock.FACING, direction.getOpposite());
-            }
-
-            if (blockstate.canSurvive(context.getLevel(), context.getClickedPos())) {
-                return blockstate;
-            }
-        }
-
-        return null;
     }
 
     @Override

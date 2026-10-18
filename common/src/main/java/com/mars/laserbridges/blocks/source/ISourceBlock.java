@@ -1,4 +1,4 @@
-package com.mars.laserbridges.blocks;
+package com.mars.laserbridges.blocks.source;
 
 import com.mars.laserbridges.LaserBridgesConfig;
 import net.minecraft.core.BlockPos;
