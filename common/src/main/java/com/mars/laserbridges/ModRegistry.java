@@ -5,6 +5,7 @@ import com.google.common.base.Suppliers;
 import com.mars.laserbridges.blocks.laser.LaserBridgeBlock;
 import com.mars.laserbridges.blocks.laser.LaserFenceBlock;
 import com.mars.laserbridges.blocks.receiver.BridgeAttachedReceiverBlock;
+import com.mars.laserbridges.blocks.receiver.FenceAttachedReceiverBlock;
 import com.mars.laserbridges.blocks.source.BridgeAttachedSourceBlock;
 import com.mars.laserbridges.blocks.source.BridgeSourceBlock;
 import com.mars.laserbridges.blocks.source.FenceAttachedSourceBlock;
@@ -50,6 +51,9 @@ public class ModRegistry {
     public static final Supplier<Block> BRIDGE_ATTACHED_RECEIVER_BLOCK = Suppliers.memoize(() ->
             new BridgeAttachedReceiverBlock(BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
 
+    public static final Supplier<Block> FENCE_ATTACHED_RECEIVER_BLOCK = Suppliers.memoize(() ->
+            new FenceAttachedReceiverBlock(BlockBehaviour.Properties.of().strength(0.8f).noOcclusion().lightLevel((state) -> state.getValue(BlockStateProperties.POWERED) ? LIGHT : 0)));
+
     // Items
     public static final Supplier<BlockItem> BRIDGE_ATTACHED_SOURCE_BLOCK_ITEM = Suppliers.memoize(() ->
             new BlockItem(BRIDGE_ATTACHED_SOURCE_BLOCK.get(), new Item.Properties()));
@@ -65,6 +69,9 @@ public class ModRegistry {
 
     public static final Supplier<BlockItem> BRIDGE_ATTACHED_RECEIVER_BLOCK_ITEM = Suppliers.memoize(() ->
             new BlockItem(BRIDGE_ATTACHED_RECEIVER_BLOCK.get(), new Item.Properties()));
+
+    public static final Supplier<BlockItem> FENCE_ATTACHED_RECEIVER_BLOCK_ITEM = Suppliers.memoize(() ->
+            new BlockItem(FENCE_ATTACHED_RECEIVER_BLOCK.get(), new Item.Properties()));
 
     // Sound Events
     public static final Supplier<SoundEvent> SOUND_ON = Suppliers.memoize(() ->
@@ -85,6 +92,7 @@ public class ModRegistry {
         BLOCKS_REG.put(FENCE_SOURCE_BLOCK_NAME, FENCE_SOURCE_BLOCK);
 
         BLOCKS_REG.put(BRIDGE_ATTACHED_RECEIVER_BLOCK_NAME, BRIDGE_ATTACHED_RECEIVER_BLOCK);
+        BLOCKS_REG.put(FENCE_ATTACHED_RECEIVER_BLOCK_NAME, FENCE_ATTACHED_RECEIVER_BLOCK);
 
         // Items
         BLOCK_ITEMS_REG.put(BRIDGE_ATTACHED_SOURCE_BLOCK_NAME, BRIDGE_ATTACHED_SOURCE_BLOCK_ITEM);
@@ -94,6 +102,7 @@ public class ModRegistry {
         BLOCK_ITEMS_REG.put(FENCE_SOURCE_BLOCK_NAME, FENCE_SOURCE_BLOCK_ITEM);
 
         BLOCK_ITEMS_REG.put(BRIDGE_ATTACHED_RECEIVER_BLOCK_NAME, BRIDGE_ATTACHED_RECEIVER_BLOCK_ITEM);
+        BLOCK_ITEMS_REG.put(FENCE_ATTACHED_RECEIVER_BLOCK_NAME, FENCE_ATTACHED_RECEIVER_BLOCK_ITEM);
 
         // Sound Events
         SOUND_EVENTS_REG.put(ON_NAME, SOUND_ON);
