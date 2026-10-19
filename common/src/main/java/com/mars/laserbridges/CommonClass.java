@@ -97,5 +97,19 @@ public class CommonClass {
 
         DeimosRecipeGenerator.createItemConvertorJson(bridgeID, fenceID, 1);
         DeimosRecipeGenerator.createItemConvertorJson(fenceID, bridgeID, 1);
+
+        String attachedBridgeReceiverID = ResourceLocation.fromNamespaceAndPath(MOD_ID, BRIDGE_ATTACHED_RECEIVER_BLOCK_NAME).toString();
+        String attachedFenceReceiverID = ResourceLocation.fromNamespaceAndPath(MOD_ID, FENCE_ATTACHED_RECEIVER_BLOCK_NAME).toString();
+
+        DeimosRecipeGenerator.createShapedRecipeJson(
+                Lists.newArrayList("minecraft:iron_ingot", "minecraft:glass", "minecraft:redstone"),
+                Lists.newArrayList("IGI", "IEI", "III"), attachedBridgeReceiverID);
+
+        DeimosRecipeGenerator.createShapedRecipeJson(
+                Lists.newArrayList("minecraft:iron_ingot", "minecraft:redstone", "minecraft:glass"),
+                Lists.newArrayList("III", "IEG", "III"), attachedFenceReceiverID);
+
+        DeimosRecipeGenerator.createItemConvertorJson(attachedBridgeReceiverID, attachedFenceReceiverID, 1);
+        DeimosRecipeGenerator.createItemConvertorJson(attachedFenceReceiverID, attachedBridgeReceiverID, 1);
     }
 }
